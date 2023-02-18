@@ -3,6 +3,7 @@ import { Storage } from '@google-cloud/storage';
 import fs from 'fs';
 import PQueue from 'p-queue';
 
+// This function takes a file path from the local machine
 const processDocument = async (projectId, location, processorId, filePath, mimeType) => {
     const documentaiClient = new documentAIClient.v1.DocumentProcessorServiceClient();
 
