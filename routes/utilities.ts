@@ -1,8 +1,11 @@
 import express from 'express';
 const router = express.Router();
+import dotenv from 'dotenv';
+dotenv.config();
 import { processDocument, keyValuePairs, batchProcessDocument } from '../services/documentAi/documentProcesses.js';
 import documentsToCsv from '../services/csv/csvFunctions.js';
 import {v4 as uuidv4} from 'uuid';
+import { main } from '../services/textract/processDocuments.js';
 
 const projectId = process.env.GOOGLE_PROJECT_ID;
 const location = process.env.GOOGLE_PROJECT_LOCATION; // Format is 'us' or 'eu'
@@ -38,6 +41,25 @@ router.post('/batchProcess', async (req, res) => {
     res.status(200).send({message: 'Data has been written to a csv file!'});
   } catch(err) {
     console.log(err);
+    res.status(500).send(err);
+  }
+})
+
+ // Set bucket and video variables for AWS resources
+ const bucket = process.env.AWS_S3_INPUT_BUCKET;
+ const documentName = "2022_TaxReturn.pdf";
+ const roleArn = process.env.TEXTRACT_ROLE
+ const processType = "DETECTION"
+
+router.post('/textractProcessSingle', async (req, res) => {
+  console.log('s3 bucket name is:', bucket);
+  try{
+    // const response = analyze_document_text(s3BucketName);
+    const response = await main(processType, bucket, documentName, roleArn);
+    console.log('endpoint response: ', response);
+    res.status(200).send({level: 'info', message: 'document successfully processed'});
+  } catch(err) {
+    console.log({level: 'error', message: `Internal Server error processing aws textract. Error: ${err}`});
     res.status(500).send(err);
   }
 })
