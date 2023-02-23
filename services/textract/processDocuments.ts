@@ -147,9 +147,9 @@ const processDocument = async (type, bucket, videoName, roleArn, sqsQueueUrl, sn
           jobFound = true
           // GET RESULTS FUNCTION HERE
           var operationResults = await GetResults(processType, rekMessage.JobId)
-          if(processType == "LENDER"){
-            var operationSummary = await GetLendingSummary(processType, rekMessage.JobId)
-          }
+          // if(processType == "LENDER"){
+          //   var operationSummary = await GetLendingSummary(processType, rekMessage.JobId)
+          // }
           //GET RESULTS FUMCTION HERE
           console.log(rekMessage.Status)
         if (String(rekMessage.Status).includes(String("SUCCEEDED"))){
@@ -298,20 +298,29 @@ const GetResults = async (processType, JobID) => {
     // console.log(typeof(blocks))
     var docMetadata = (await response).DocumentMetadata
     var results = (await response).Results
-    console.log('results:', results)
-    console.log('extractions: ', results[0].Extractions[0].LendingDocument.LendingFields)
-    // var blockString = JSON.stringify(blocks)
-    // var parsed = JSON.parse(JSON.stringify(blocks))
-    // console.log(Object.keys(blocks))
-    console.log(`Pages: ${docMetadata.Pages}`)
-    // blocks.forEach((block)=> {
-    //   displayBlockInfo(block)
-    //   console.log()
-    //   console.log()
-    // })
+    // console.log('results:', results)
+    // THIS IS WHERE WE WILL GET THE TYPES & VALUES (Extractions)
+    results.forEach(r => {
+      console.log("Type of Page:", r.PageClassification.PageType[0].Value);
+      console.log("Page Type Confidence: ", r.PageClassification.PageType[0].Confidence);
+      console.log();
+      if(r.Extractions.length > 0){
+      var fields = r.Extractions[0].LendingDocument.LendingFields;
+        fields.forEach(e => {
+          console.log('Type: ', e.Type);
+          // There are sometimes multiple value detections, sometimes there are none
+          if(e.ValueDetections.length > 0){
+            console.log('Value: ', e.ValueDetections[0].Text);
+            console.log('Value Confidence: ', e.ValueDetections[0].Confidence);
+            console.log();
+          } else {
+            console.log("Type Value not found");
+            console.log();
+          }
 
-    //console.log(blocks[0].BlockType)
-    //console.log(blocks[1].BlockType)
+        })
+      }
+    });
 
     if(String(response).includes("NextToken")){
       paginationToken = response.NextToken
@@ -340,12 +349,16 @@ const GetLendingSummary = async (processType, JobID) => {
 
     await new Promise(resolve => setTimeout(resolve, 5000));
     console.log({level: 'info', message: "Detected Documented Text Summary" })
-    var docMetadata = (await response).DocumentMetadata
-    var sumResponse = (await response)
-    console.log('Here is a sum response:', sumResponse)
-    var results = (await response).Results
-    console.log('summary results:', results)
-    console.log('summary extractions: ', results[0].Extractions)
+    // BELOW LINE RETURNS THE NUMBER OF PAGES IN THE ANALYZED DOCUMENT
+    // var docMetadata = (await response).DocumentMetadata.Pages
+    var summary = (await response).Summary
+    console.log('Summary:', summary)
+
+    // BELOW LINE RETURNS A SUMMARY OBJECT OF THE ANALYZED DOCUMENT
+    // var summary = (await sumResponse).Summary
+
+    // BELOW LINE RETURNS THE TYPE OF DOCUMENTS 
+    // var docGroup = (await sumResponse).Summary.DocumentGroups
 
     if(String(response).includes("NextToken")){
       paginationToken = response.NextToken

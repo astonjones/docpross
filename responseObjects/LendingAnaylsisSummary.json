@@ -1,0 +1,137 @@
+{
+  "DocumentMetadata": {
+    "Pages": 7
+  },
+  "JobStatus": "SUCCEEDED",
+  "Summary": {
+    "DocumentGroups": [
+      {
+        "Type": "PAYSLIPS",
+        "SplitDocuments": [
+          {
+            "Index": 1,
+            "Pages": [
+              1
+            ]
+          }
+        ],
+        "DetectedSignatures": [],
+        "UndetectedSignatures": []
+      },
+      {
+        "Type": "CHECKS",
+        "SplitDocuments": [
+          {
+            "Index": 1,
+            "Pages": [
+              2
+            ]
+          }
+        ],
+        "DetectedSignatures": [
+          {
+            "Page": 2
+          }
+        ],
+        "UndetectedSignatures": []
+      },
+      {
+        "Type": "IDENTITY_DOCUMENT",
+        "SplitDocuments": [
+          {
+            "Index": 1,
+            "Pages": [
+              3
+            ]
+          }
+        ],
+        "DetectedSignatures": [],
+        "UndetectedSignatures": []
+      },
+      {
+        "Type": "1099_DIV",
+        "SplitDocuments": [
+          {
+            "Index": 1,
+            "Pages": [
+              4
+            ]
+          }
+        ],
+        "DetectedSignatures": [],
+        "UndetectedSignatures": []
+      },
+      {
+        "Type": "BANK_STATEMENT",
+        "SplitDocuments": [
+          {
+            "Index": 1,
+            "Pages": [
+              5
+            ]
+          }
+        ],
+        "DetectedSignatures": [],
+        "UndetectedSignatures": []
+      },
+      {
+        "Type": "W_2",
+        "SplitDocuments": [
+          {
+            "Index": 1,
+            "Pages": [
+              6
+            ]
+          }
+        ],
+        "DetectedSignatures": [],
+        "UndetectedSignatures": []
+      },
+      {
+        "Type": "UNCLASSIFIED",
+        "SplitDocuments": [
+          {
+            "Index": 1,
+            "Pages": [
+              7
+            ]
+          }
+        ],
+        "DetectedSignatures": [],
+        "UndetectedSignatures": []
+      }
+    ],
+    "UndetectedDocumentTypes": [
+      "1040_SCHEDULE_C",
+      "1005",
+      "1099_SSA",
+      "1099_INT",
+      "DEMOGRAPHIC_ADDENDUM",
+      "1065",
+      "1040",
+      "1120_S",
+      "SSA_89",
+      "MORTGAGE_STATEMENT",
+      "1099_MISC",
+      "HOA_STATEMENT",
+      "INVESTMENT_STATEMENT",
+      "1120",
+      "1003",
+      "VBA_26_0551",
+      "1099_R",
+      "1008",
+      "1099_NEC",
+      "1040_SCHEDULE_E",
+      "UTILITY_BILLS",
+      "W_9",
+      "HUD_92900_B",
+      "PAYOFF_STATEMENT",
+      "1099_G",
+      "CREDIT_CARD_STATEMENT",
+      "INVOICES",
+      "RECEIPTS",
+      "1040_SCHEDULE_D"
+    ]
+  },
+  "AnalyzeLendingModelVersion": "1.0"
+}

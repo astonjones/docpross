@@ -1,0 +1,226 @@
+{
+  "Page": 3,
+  "PageClassification": {
+    "PageType": [
+      {
+        "Value": "IDENTITY_DOCUMENT",
+        "Confidence": 99.99968719482422
+      }
+    ],
+    "PageNumber": [
+      {
+        "Value": "undetected",
+        "Confidence": 100
+      }
+    ]
+  },
+  "Extractions": [
+    {
+      "IdentityDocument": {
+        "IdentityDocumentFields": [
+          {
+            "Type": {
+              "Text": "FIRST_NAME"
+            },
+            "ValueDetection": {
+              "Text": "GARCIA",
+              "Confidence": 98.5550765991211
+            }
+          },
+          {
+            "Type": {
+              "Text": "LAST_NAME"
+            },
+            "ValueDetection": {
+              "Text": "MARIA",
+              "Confidence": 98.21490478515625
+            }
+          },
+          {
+            "Type": {
+              "Text": "MIDDLE_NAME"
+            },
+            "ValueDetection": {
+              "Text": "",
+              "Confidence": 99.19513702392578
+            }
+          },
+          {
+            "Type": {
+              "Text": "SUFFIX"
+            },
+            "ValueDetection": {
+              "Text": "",
+              "Confidence": 99.16223907470703
+            }
+          },
+          {
+            "Type": {
+              "Text": "CITY_IN_ADDRESS"
+            },
+            "ValueDetection": {
+              "Text": "BIGTOWN",
+              "Confidence": 97.38475799560547
+            }
+          },
+          {
+            "Type": {
+              "Text": "ZIP_CODE_IN_ADDRESS"
+            },
+            "ValueDetection": {
+              "Text": "02801",
+              "Confidence": 97.67928314208984
+            }
+          },
+          {
+            "Type": {
+              "Text": "STATE_IN_ADDRESS"
+            },
+            "ValueDetection": {
+              "Text": "MA",
+              "Confidence": 98.78461456298828
+            }
+          },
+          {
+            "Type": {
+              "Text": "STATE_NAME"
+            },
+            "ValueDetection": {
+              "Text": "MASSACHUSETTS",
+              "Confidence": 97.0796127319336
+            }
+          },
+          {
+            "Type": {
+              "Text": "DOCUMENT_NUMBER"
+            },
+            "ValueDetection": {
+              "Text": "736HDV7874JSB",
+              "Confidence": 94.40604400634766
+            }
+          },
+          {
+            "Type": {
+              "Text": "EXPIRATION_DATE"
+            },
+            "ValueDetection": {
+              "Text": "01/20/2028",
+              "NormalizedValue": {
+                "Value": "2028-01-20T00:00:00",
+                "ValueType": "Date"
+              },
+              "Confidence": 97.5164794921875
+            }
+          },
+          {
+            "Type": {
+              "Text": "DATE_OF_BIRTH"
+            },
+            "ValueDetection": {
+              "Text": "03/18/2001",
+              "NormalizedValue": {
+                "Value": "2001-03-18T00:00:00",
+                "ValueType": "Date"
+              },
+              "Confidence": 94.77822875976562
+            }
+          },
+          {
+            "Type": {
+              "Text": "DATE_OF_ISSUE"
+            },
+            "ValueDetection": {
+              "Text": "03/18/2018",
+              "NormalizedValue": {
+                "Value": "2018-03-18T00:00:00",
+                "ValueType": "Date"
+              },
+              "Confidence": 97.86804962158203
+            }
+          },
+          {
+            "Type": {
+              "Text": "ID_TYPE"
+            },
+            "ValueDetection": {
+              "Text": "DRIVER LICENSE FRONT",
+              "Confidence": 97.05255889892578
+            }
+          },
+          {
+            "Type": {
+              "Text": "ENDORSEMENTS"
+            },
+            "ValueDetection": {
+              "Text": "NONE",
+              "Confidence": 98.484619140625
+            }
+          },
+          {
+            "Type": {
+              "Text": "VETERAN"
+            },
+            "ValueDetection": {
+              "Text": "",
+              "Confidence": 99.17566680908203
+            }
+          },
+          {
+            "Type": {
+              "Text": "RESTRICTIONS"
+            },
+            "ValueDetection": {
+              "Text": "NONE",
+              "Confidence": 98.4768295288086
+            }
+          },
+          {
+            "Type": {
+              "Text": "CLASS"
+            },
+            "ValueDetection": {
+              "Text": "D",
+              "Confidence": 97.84945678710938
+            }
+          },
+          {
+            "Type": {
+              "Text": "ADDRESS"
+            },
+            "ValueDetection": {
+              "Text": "100 MARKET STREET",
+              "Confidence": 97.26184844970703
+            }
+          },
+          {
+            "Type": {
+              "Text": "COUNTY"
+            },
+            "ValueDetection": {
+              "Text": "",
+              "Confidence": 99.17761993408203
+            }
+          },
+          {
+            "Type": {
+              "Text": "PLACE_OF_BIRTH"
+            },
+            "ValueDetection": {
+              "Text": "",
+              "Confidence": 99.16996765136719
+            }
+          },
+          {
+            "Type": {
+              "Text": "MRZ_CODE"
+            },
+            "ValueDetection": {
+              "Text": "",
+              "Confidence": 97.52333068847656
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
