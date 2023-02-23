@@ -15,6 +15,9 @@ import  {
   StartDocumentAnalysisCommand,
   GetDocumentAnalysisCommand,
   GetDocumentTextDetectionCommand,
+  GetLendingAnalysisCommand,
+  GetLendingAnalysisSummaryCommand,
+  StartLendingAnalysisCommand,
   DocumentMetadata
 } from "@aws-sdk/client-textract";
 import { stdout } from "process";
@@ -83,9 +86,27 @@ const processDocument = async (type, bucket, videoName, roleArn, sqsQueueUrl, sn
         RoleArn: roleArn,
         SNSTopicArn: snsTopicArn
       },
-      FeatureTypes: ["FORM", "TABLE"]
+      FeatureTypes: ["FORMS", "TABLES"]
     }))
       console.log({level: 'info', message: 'Processing type: Analysis'})
+      validType = true
+    }
+
+    if(processType == "LENDER"){
+      var response = await textractClient.send(new StartLendingAnalysisCommand(
+      {
+        DocumentLocation:{
+          S3Object:{
+            Bucket:bucket,
+            Name:videoName
+          }
+        }, 
+        NotificationChannel:{
+        RoleArn: roleArn,
+        SNSTopicArn: snsTopicArn
+      }
+      }))
+      console.log({level: 'info', message: 'Processing type: Lending Analysis'})
       validType = true
     }
 
@@ -117,15 +138,18 @@ const processDocument = async (type, bucket, videoName, roleArn, sqsQueueUrl, sn
 
        // Once job found, log Job ID and return true if status is succeeded
       for (var message of sqsReceivedResponse.Messages){
-        console.log("Retrieved messages:")
+        console.log({level: 'info', message: 'Retrieved messages:'})
         var notification = JSON.parse(message.Body)
         var rekMessage = JSON.parse(notification.Message)
         var messageJobId = rekMessage.JobId
         if (String(rekMessage.JobId).includes(String(startJobId))){
           console.log({ level: 'info', message: `Matching job found: ${rekMessage.JobId}`})
           jobFound = true
-          // GET RESUlTS FUNCTION HERE
+          // GET RESULTS FUNCTION HERE
           var operationResults = await GetResults(processType, rekMessage.JobId)
+          if(processType == "LENDER"){
+            var operationSummary = await GetLendingSummary(processType, rekMessage.JobId)
+          }
           //GET RESULTS FUMCTION HERE
           console.log(rekMessage.Status)
         if (String(rekMessage.Status).includes(String("SUCCEEDED"))){
@@ -252,24 +276,33 @@ const GetResults = async (processType, JobID) => {
     if(processType == 'DETECTION'){
       if (paginationToken == null){
         response = textractClient.send(new GetDocumentTextDetectionCommand({JobId:JobID, MaxResults:maxResults}))
-    
       } else {
         response = textractClient.send(new GetDocumentTextDetectionCommand({JobId:JobID, MaxResults:maxResults, NextToken:paginationToken}))
       }
     }
 
+    if(processType = 'LENDER'){
+      if (paginationToken == null){
+        response = textractClient.send(new GetLendingAnalysisCommand({JobId:JobID, MaxResults:maxResults}))
+      } else {
+        response = textractClient.send(new GetLendingAnalysisCommand({JobId:JobID, MaxResults:maxResults, NextToken:paginationToken}))
+      }
+    }
+
     await new Promise(resolve => setTimeout(resolve, 5000));
     console.log({level: 'info', message: "Detected Documented Text" })
-    console.log('getResults response:', response)
     //console.log(Object.keys(response))
-    console.log(typeof(response))
-    var blocks = (await response).Blocks
-    console.log(blocks)
-    console.log(typeof(blocks))
+    // console.log(typeof(response))
+    // var blocks = (await response).Blocks
+    // console.log(blocks)
+    // console.log(typeof(blocks))
     var docMetadata = (await response).DocumentMetadata
-    var blockString = JSON.stringify(blocks)
-    var parsed = JSON.parse(JSON.stringify(blocks))
-    console.log(Object.keys(blocks))
+    var results = (await response).Results
+    console.log('results:', results)
+    console.log('extractions: ', results[0].Extractions[0].LendingDocument.LendingFields)
+    // var blockString = JSON.stringify(blocks)
+    // var parsed = JSON.parse(JSON.stringify(blocks))
+    // console.log(Object.keys(blocks))
     console.log(`Pages: ${docMetadata.Pages}`)
     // blocks.forEach((block)=> {
     //   displayBlockInfo(block)
@@ -279,6 +312,40 @@ const GetResults = async (processType, JobID) => {
 
     //console.log(blocks[0].BlockType)
     //console.log(blocks[1].BlockType)
+
+    if(String(response).includes("NextToken")){
+      paginationToken = response.NextToken
+    }else{
+      finished = true
+    }
+  }
+
+}
+
+const GetLendingSummary = async (processType, JobID) => {
+  var maxResults = 1000
+  var paginationToken = null
+  var finished = false
+
+  while (finished == false){
+    var response = null
+
+    if(processType = 'LENDER'){
+      if (paginationToken == null){
+        response = textractClient.send(new GetLendingAnalysisSummaryCommand({JobId:JobID}))
+      } else {
+        response = textractClient.send(new GetLendingAnalysisSummaryCommand({JobId:JobID}))
+      }
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 5000));
+    console.log({level: 'info', message: "Detected Documented Text Summary" })
+    var docMetadata = (await response).DocumentMetadata
+    var sumResponse = (await response)
+    console.log('Here is a sum response:', sumResponse)
+    var results = (await response).Results
+    console.log('summary results:', results)
+    console.log('summary extractions: ', results[0].Extractions)
 
     if(String(response).includes("NextToken")){
       paginationToken = response.NextToken

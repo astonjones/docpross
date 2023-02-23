@@ -47,16 +47,15 @@ router.post('/batchProcess', async (req, res) => {
 
  // Set bucket and video variables for AWS resources
  const bucket = process.env.AWS_S3_INPUT_BUCKET;
- const documentName = "2022_TaxReturn.pdf";
+ const documentName = "PRNW2_2021.pdf";
  const roleArn = process.env.TEXTRACT_ROLE
- const processType = "DETECTION"
+ // Current Types availabld types are: ["LENDER", "DETECTION", "ANALYSIS"]
+ const processType = "LENDER"
 
 router.post('/textractProcessSingle', async (req, res) => {
   console.log('s3 bucket name is:', bucket);
   try{
-    // const response = analyze_document_text(s3BucketName);
     const response = await main(processType, bucket, documentName, roleArn);
-    console.log('endpoint response: ', response);
     res.status(200).send({level: 'info', message: 'document successfully processed'});
   } catch(err) {
     console.log({level: 'error', message: `Internal Server error processing aws textract. Error: ${err}`});
