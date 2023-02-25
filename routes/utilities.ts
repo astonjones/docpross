@@ -6,6 +6,7 @@ import { processDocument, keyValuePairs, batchProcessDocument } from '../service
 import documentsToCsv from '../services/csv/csvFunctions.js';
 import {v4 as uuidv4} from 'uuid';
 import { main } from '../services/textract/processDocuments.js';
+import { run } from '../db/lendingDocument.js';
 
 const projectId = process.env.GOOGLE_PROJECT_ID;
 const location = process.env.GOOGLE_PROJECT_LOCATION; // Format is 'us' or 'eu'
@@ -59,6 +60,15 @@ router.post('/textractProcessSingle', async (req, res) => {
     res.status(200).send({level: 'info', message: 'document successfully processed'});
   } catch(err) {
     console.log({level: 'error', message: `Internal Server error processing aws textract. Error: ${err}`});
+    res.status(500).send(err);
+  }
+})
+
+router.post('/connectToDb', async (req, res) => {
+  try{
+    run();
+    res.status(200).send('connected to db!');
+  } catch(err) {
     res.status(500).send(err);
   }
 })
