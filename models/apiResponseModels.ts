@@ -9,9 +9,3 @@ export interface LendingDocumentResponse {
     Confidence: number
   }[]
 }
-
-// export class LendingDocumentResponse {
-//   constructor(){
-
-//   }
-// }

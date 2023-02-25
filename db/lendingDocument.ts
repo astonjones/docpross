@@ -1,19 +1,40 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import { MongoClient } from "mongodb"
+import mongoose from 'mongoose'
+// import { MongoClient } from "mongodb"
+
+import UserModel from '../models/mongooseModels/user.model.js';
+import LendingDocumentSchema from '../models/mongooseModels/document.model.js';
+import clientModel from '../models/mongooseModels/client.model.js';
+
 // Connection URI
 const uri = process.env.MONGO_URI;
-// Create a new MongoClient
-const client = new MongoClient(uri);
-export async function run() {
+mongoose.set("strictQuery", false);
+mongoose.connect(uri + '/users')
+
+export const createUser = async (email: string, password: string) => {
+  const user = await UserModel.create({
+    email: email,
+    password: password
+  })
+  user.save();
+}
+
+export const readUser = async (email: string, password: string) => {
+  const user = await UserModel.findOne({
+    email: email,
+    password: password
+  })
+  return user;
+}
+
+export const dbHealthCheck = async () => {
   try {
-    // Connect the client to the server (optional starting in v4.7)
-    await client.connect();
-    // Establish and verify connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Connected successfully to server");
+    await mongoose.connect(uri);
+    return
+  } catch(err){
+    return err;
   } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
+    await mongoose.disconnect();
   }
 }
