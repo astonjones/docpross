@@ -21,6 +21,12 @@ import  {
   DocumentMetadata
 } from "@aws-sdk/client-textract";
 import { stdout } from "process";
+import {
+  LendingDocumentEntity,
+  LendingDocumentField,
+  ValueDetectedEntity
+ } from "../../models/documentModels";
+ import { LendingDocumentResponse } from "../../models/apiResponseModels";
 
  // Set the AWS Region.
  const REGION = "us-east-1"; //e.g. "us-east-1"
@@ -175,10 +181,10 @@ const createTopicandQueue = async () => {
     // Create SNS topic
     const topicResponse = await snsClient.send(new CreateTopicCommand(snsTopicParams));
     const topicArn = topicResponse.TopicArn
-    console.log({level: 'info', message: `Success creating sns topic - ${topicResponse}`});
+    console.log({level: 'info', message: `Success creating sns topic`});
     // Create SQS Queue
     const sqsResponse = await sqsClient.send(new CreateQueueCommand(sqsParams));
-    console.log({ level: 'info', message: `Success creating SQS queue: ${sqsResponse}`});
+    console.log({ level: 'info', message: `Success creating SQS queue`});
     const sqsQueueCommand = await sqsClient.send(new GetQueueUrlCommand({QueueName: sqsQueueName}))
     const sqsQueueUrl = sqsQueueCommand.QueueUrl
     const attribsResponse = await sqsClient.send(new GetQueueAttributesCommand({QueueUrl: sqsQueueUrl, AttributeNames: ['QueueArn']}))
@@ -291,16 +297,12 @@ const GetResults = async (processType, JobID) => {
 
     await new Promise(resolve => setTimeout(resolve, 5000));
     console.log({level: 'info', message: "Detected Documented Text" })
-    //console.log(Object.keys(response))
-    // console.log(typeof(response))
-    // var blocks = (await response).Blocks
-    // console.log(blocks)
-    // console.log(typeof(blocks))
     var docMetadata = (await response).DocumentMetadata
     var results = (await response).Results
-    // console.log('results:', results)
+    let pageTypes = [];
     // THIS IS WHERE WE WILL GET THE TYPES & VALUES (Extractions)
-    results.forEach(r => {
+    results.forEach((r: LendingDocumentEntity) => {
+      const pagetype = r.PageClassification.PageType[0].Value;
       console.log("Type of Page:", r.PageClassification.PageType[0].Value);
       console.log("Page Type Confidence: ", r.PageClassification.PageType[0].Confidence);
       console.log();
