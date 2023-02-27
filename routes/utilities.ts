@@ -6,7 +6,8 @@ import { processDocument, keyValuePairs, batchProcessDocument } from '../service
 import documentsToCsv from '../services/csv/csvFunctions.js';
 import {v4 as uuidv4} from 'uuid';
 import { main } from '../services/textract/processDocuments.js';
-import { createUser, dbHealthCheck, readUser } from '../db/lendingDocument.js';
+import { createUser, readUser } from '../db/userFunctions.js';
+import { createClient, readClient } from '../db/clientFunctions.js';
 
 const projectId = process.env.GOOGLE_PROJECT_ID;
 const location = process.env.GOOGLE_PROJECT_LOCATION; // Format is 'us' or 'eu'
@@ -66,16 +67,6 @@ router.post('/textractProcessSingle', async (req, res) => {
 
 // ------------------- DB Routes ---------------------
 
-router.post('/dbHealthCheck', async (req, res) => {
-  try {
-    dbHealthCheck();
-    res.status(200).send({message: 'Connected to DB!'});
-  } catch(err) {
-    console.log({level: 'error', message: 'error occured in db health check'})
-    res.status(500).send({level: 'error', message: 'error occured in db health check'});
-  }
-})
-
 router.post('/addUser', async (req, res) => {
   try{
     await createUser(req.body.email, req.body.password)
@@ -89,6 +80,24 @@ router.post('/findUser', async (req, res) => {
   try {
     const user = await readUser(req.body.email, req.body.password)
     res.status(200).send(user);
+  } catch (err) {
+    res.status(500).send({level: 'error', message: 'Error occured finding user.'})
+  }
+})
+
+router.post('/addClient', async (req, res) => {
+  try {
+    const client = await createClient(req.body.name, req.body.email, req.body.address, req.body.phone);
+    res.status(200).send({level: 'info', message: `client ${req.body.name} was created!`})
+  } catch (err) {
+    res.status(500).send({level: 'error', message: 'Error occured when creating a client!'})
+  }
+})
+
+router.post('/findClient', async (req, res) => {
+  try {
+    const client = await readClient(req.body.name, req.body.email)
+    res.status(200).send(client);
   } catch (err) {
     res.status(500).send({level: 'error', message: 'Error occured finding user.'})
   }
