@@ -6,7 +6,7 @@ import LendingDocumentSchema from '../models/mongooseModels/document.model.js';
 
 export const createDocument = async (doc: DocumentModelOutput) => {
   const document = await LendingDocumentSchema.create({
-    document_type: doc.documentType,
+    documentType: doc.documentType,
     documentFields: doc.documentFields
   })
 }

@@ -314,7 +314,6 @@ const GetResults = async (processType, JobID) => {
             // console.log('Value Confidence: ', e.ValueDetections[0].Confidence);
           } else {
             console.log({level: 'info', message: `Type ${e.Type} Value not found`});
-            console.log();
           }
         })
       }
