@@ -22,6 +22,7 @@ import  {
 } from "@aws-sdk/client-textract";
 import { stdout } from "process";
 import {
+  DocumentModelOutput,
   LendingDocumentEntity,
   LendingDocumentField,
   ValueDetectedEntity
@@ -144,20 +145,15 @@ const processDocument = async (type, bucket, videoName, roleArn, sqsQueueUrl, sn
 
        // Once job found, log Job ID and return true if status is succeeded
       for (var message of sqsReceivedResponse.Messages){
-        console.log({level: 'info', message: 'Retrieved messages:'})
         var notification = JSON.parse(message.Body)
         var rekMessage = JSON.parse(notification.Message)
-        var messageJobId = rekMessage.JobId
+        // var messageJobId = rekMessage.JobId
         if (String(rekMessage.JobId).includes(String(startJobId))){
           console.log({ level: 'info', message: `Matching job found: ${rekMessage.JobId}`})
           jobFound = true
           // GET RESULTS FUNCTION HERE
           var operationResults = await GetResults(processType, rekMessage.JobId)
-          // if(processType == "LENDER"){
-          //   var operationSummary = await GetLendingSummary(processType, rekMessage.JobId)
-          // }
-          //GET RESULTS FUMCTION HERE
-          console.log(rekMessage.Status)
+          // console.log(rekMessage.Status)
         if (String(rekMessage.Status).includes(String("SUCCEEDED"))){
           succeeded = true
           console.log({level: 'info', message: 'Job processing succeeded.'})
@@ -171,8 +167,11 @@ const processDocument = async (type, bucket, videoName, roleArn, sqsQueueUrl, sn
       console.log({level: 'info', message: "Done!"})
     }
   } catch (err) {
-    console.log({level: 'error', message: `Error occurred in processDocument function: ${err}`});
+    console.log({level: 'error', message: `Error occurred in processDocument function`});
+    console.log(err);
+    return [];
   }
+  return operationResults;
 }
 
  // Create the SNS topic and SQS Queue
@@ -268,6 +267,7 @@ const GetResults = async (processType, JobID) => {
   var maxResults = 1000
   var paginationToken = null
   var finished = false
+  let documentsArray = [];
 
   while (finished == false){
     var response = null
@@ -297,31 +297,29 @@ const GetResults = async (processType, JobID) => {
 
     await new Promise(resolve => setTimeout(resolve, 5000));
     console.log({level: 'info', message: "Detected Documented Text" })
-    var docMetadata = (await response).DocumentMetadata
+    // var docMetadata = (await response).DocumentMetadata
     var results = (await response).Results
-    let pageTypes = [];
     // THIS IS WHERE WE WILL GET THE TYPES & VALUES (Extractions)
     results.forEach((r: LendingDocumentEntity) => {
       const pagetype = r.PageClassification.PageType[0].Value;
-      console.log("Type of Page:", r.PageClassification.PageType[0].Value);
-      console.log("Page Type Confidence: ", r.PageClassification.PageType[0].Confidence);
-      console.log();
+      let documentFields: any = [];
+      // console.log("Page Type Confidence: ", r.PageClassification.PageType[0].Confidence);
       if(r.Extractions.length > 0){
       var fields = r.Extractions[0].LendingDocument.LendingFields;
-        fields.forEach(e => {
-          console.log('Type: ', e.Type);
+        fields.forEach((e: LendingDocumentField) => {
           // There are sometimes multiple value detections, sometimes there are none
           if(e.ValueDetections.length > 0){
-            console.log('Value: ', e.ValueDetections[0].Text);
-            console.log('Value Confidence: ', e.ValueDetections[0].Confidence);
-            console.log();
+            // Right now it is appending the first value NOT the most confident
+            documentFields.push({Type: e.Type, Value: e.ValueDetections[0].Text});
+            // console.log('Value Confidence: ', e.ValueDetections[0].Confidence);
           } else {
-            console.log("Type Value not found");
+            console.log({level: 'info', message: `Type ${e.Type} Value not found`});
             console.log();
           }
-
         })
       }
+      let documentObject: DocumentModelOutput = {documentType: pagetype, documentFields: documentFields}
+      documentsArray.push(documentObject);
     });
 
     if(String(response).includes("NextToken")){
@@ -330,7 +328,7 @@ const GetResults = async (processType, JobID) => {
       finished = true
     }
   }
-
+  return documentsArray;
 }
 
 const GetLendingSummary = async (processType, JobID) => {
@@ -376,6 +374,7 @@ const main = async (processType, bucket, documentName, roleArn) => {
   var sqsAndTopic = await createTopicandQueue();
   var process = await processDocument(processType, bucket, documentName, roleArn, sqsAndTopic[0], sqsAndTopic[1])
   var deleteResults = await deleteTopicAndQueue(sqsAndTopic[0], sqsAndTopic[1])
+  return process;
 }
 
 export {

@@ -8,6 +8,8 @@ import {v4 as uuidv4} from 'uuid';
 import { main } from '../services/textract/processDocuments.js';
 import { createUser, readUser } from '../db/userFunctions.js';
 import { createClient, readClient } from '../db/clientFunctions.js';
+import { createDocument, readDocumentFromId } from '../db/documentFunctions.js';
+import { DocumentModelOutput } from '../models/documentModels.js';
 
 const projectId = process.env.GOOGLE_PROJECT_ID;
 const location = process.env.GOOGLE_PROJECT_LOCATION; // Format is 'us' or 'eu'
@@ -15,6 +17,8 @@ const processorId = process.env.GOOGLE_PROCESSOR_ID; // Should be a Hexadecimal 
 const gcsInputUri = process.env.GCS_INPUT_URI;
 const gcsOutputUri = process.env.GCS_OUTPUT_URI;
 const processorPath = process.env.GOOGLE_AI_PROCESSOR_PATH;
+
+// --------------- ROUTES FOR GOOGLE DOCUMENT AI -----------------------
 
 router.post('/processDocument', async (req, res) => {
   // Supported File Types
@@ -47,6 +51,8 @@ router.post('/batchProcess', async (req, res) => {
   }
 })
 
+// ---------------------  END OF GOOGLE DOCUMENT AI ROUTES -------------------------
+
  // Set bucket and video variables for AWS resources
  const bucket = process.env.AWS_S3_INPUT_BUCKET;
  const documentName = "PRNW2_2021.pdf";
@@ -55,12 +61,14 @@ router.post('/batchProcess', async (req, res) => {
  const processType = "LENDER"
 
 router.post('/textractProcessSingle', async (req, res) => {
-  console.log('s3 bucket name is:', bucket);
   try{
-    const response = await main(processType, bucket, documentName, roleArn);
-    res.status(200).send({level: 'info', message: 'document successfully processed'});
+    const response: DocumentModelOutput[] = await main(processType, bucket, documentName, roleArn);
+    response.forEach(item => {
+      createDocument(item)
+    })
+    res.status(200).send({level: 'info', message: 'Document(s) have been inserted in the DB'});
   } catch(err) {
-    console.log({level: 'error', message: `Internal Server error processing aws textract. Error: ${err}`});
+    console.log({level: 'error', message: `Internal Server error processing aws textract.`});
     res.status(500).send(err);
   }
 })
@@ -100,6 +108,15 @@ router.post('/findClient', async (req, res) => {
     res.status(200).send(client);
   } catch (err) {
     res.status(500).send({level: 'error', message: 'Error occured finding user.'})
+  }
+})
+
+router.post('/findDocument', async (req, res) => {
+  try {
+    const doc = await readDocumentFromId(req.body.id)
+    res.status(200).send(doc);
+  } catch (err) {
+    res.status(500).send({level: 'error', message: 'Could not find that document by Id.'})
   }
 })
 

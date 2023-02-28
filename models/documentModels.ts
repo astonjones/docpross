@@ -28,3 +28,8 @@ export interface LendingDocumentEntity {
     }
   }[]
 }
+
+export interface DocumentModelOutput {
+  documentType: String, // PageClassification.PageType.Value
+  documentFields: []
+}

@@ -28,5 +28,5 @@ mongoose.connection.once('open', function () {
   console.log({level: 'info', message: 'database connected successfully!'})
 
   http.createServer(app).listen(1337, () =>
-  console.log('express listening on port:', 1337));
+  console.log({level: 'info', message: `express listening on port: ${1337}`}));
 });
