@@ -9,6 +9,7 @@ export const createDocument = async (doc: DocumentModelOutput) => {
     documentType: doc.documentType,
     documentFields: doc.documentFields
   })
+  return document;
 }
 
 export const readDocumentFromId = async (docId: string) => {

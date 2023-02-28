@@ -9,6 +9,7 @@ export const createUser = async (email: string, password: string) => {
     email: email,
     password: password
   })
+  return user;
 }
 
 export const readUser = async (email: string, password: string) => {

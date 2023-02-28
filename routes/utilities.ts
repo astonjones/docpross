@@ -7,7 +7,7 @@ import documentsToCsv from '../services/csv/csvFunctions.js';
 import {v4 as uuidv4} from 'uuid';
 import { main } from '../services/textract/processDocuments.js';
 import { createUser, readUser } from '../db/userFunctions.js';
-import { createClient, readClient } from '../db/clientFunctions.js';
+import { createClient, insertCientDocument, readClient } from '../db/clientFunctions.js';
 import { createDocument, readDocumentFromId } from '../db/documentFunctions.js';
 import { DocumentModelOutput } from '../models/documentModels.js';
 
@@ -60,13 +60,20 @@ router.post('/batchProcess', async (req, res) => {
  // Current Types availabld types are: ["LENDER", "DETECTION", "ANALYSIS"]
  const processType = "LENDER"
 
+ // pass documents to a client
 router.post('/textractProcessSingle', async (req, res) => {
   try{
-    const response: DocumentModelOutput[] = await main(processType, bucket, documentName, roleArn);
-    response.forEach(item => {
-      createDocument(item)
-    })
-    res.status(200).send({level: 'info', message: 'Document(s) have been inserted in the DB'});
+    // Here we should get the client and then insert documents for a specific client
+    if(req.body.clientEmail != null || req.body.clientEmail != undefined){
+      const response: DocumentModelOutput[] = await main(processType, bucket, documentName, roleArn);
+      response.forEach(async (item) => {
+        var result = await createDocument(item)
+        await insertCientDocument(req.body.clientEmail, result._id);
+      })
+      res.status(200).send({level: 'info', message: 'Document(s) have been inserted in the DB'});
+    } else {
+      res.status(200).send({level: 'info', message: 'Error with the input parameters'});
+    }
   } catch(err) {
     console.log({level: 'error', message: `Internal Server error processing aws textract.`});
     res.status(500).send(err);

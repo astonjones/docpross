@@ -10,6 +10,7 @@ export const createClient = async (name: string, email: string, address: Object,
     address: address,
     phone: phone,
   })
+  return client;
 }
 
 export const readClient = async (name: string, email: string) => {
@@ -18,4 +19,8 @@ export const readClient = async (name: string, email: string) => {
     email: email
   })
   return client;
+}
+
+export const insertCientDocument = async (email: string, documentId: any) => {
+  const client = await clientModel.findOneAndUpdate({email: email}, {$push: {documents: documentId}})
 }
