@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import { ObjectId } from 'mongodb';
 dotenv.config();
 
 import clientModel from '../models/mongooseModels/client.model.js';
@@ -21,6 +22,7 @@ export const readClient = async (name: string, email: string) => {
   return client;
 }
 
-export const insertCientDocument = async (email: string, documentId: any) => {
+export const insertClientDocument = async (email: string, documentId: any) => {
   const client = await clientModel.findOneAndUpdate({email: email}, {$push: {documents: documentId}})
+  return client;
 }

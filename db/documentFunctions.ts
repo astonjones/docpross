@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import { ObjectId } from 'mongodb';
 import { DocumentModelOutput, LendingDocumentField } from '../models/documentModels.js';
 dotenv.config();
 
@@ -12,7 +13,7 @@ export const createDocument = async (doc: DocumentModelOutput) => {
   return document;
 }
 
-export const readDocumentFromId = async (docId: string) => {
+export const readDocumentFromId = async (docId: any) => {
   const document = await LendingDocumentSchema.findOne({
     _id: docId,
   })

@@ -7,7 +7,7 @@ import documentsToCsv from '../services/csv/csvFunctions.js';
 import {v4 as uuidv4} from 'uuid';
 import { main } from '../services/textract/processDocuments.js';
 import { createUser, readUser } from '../db/userFunctions.js';
-import { createClient, insertCientDocument, readClient } from '../db/clientFunctions.js';
+import { createClient, insertClientDocument, readClient } from '../db/clientFunctions.js';
 import { createDocument, readDocumentFromId } from '../db/documentFunctions.js';
 import { DocumentModelOutput } from '../models/documentModels.js';
 
@@ -40,7 +40,6 @@ router.post('/processDocument', async (req, res) => {
 
 router.post('/batchProcess', async (req, res) => {
   const gcsOutputUriPrefix = uuidv4();
-
   try{
     const documents = await batchProcessDocument(processorPath, gcsInputUri, gcsOutputUri, gcsOutputUriPrefix);
     await documentsToCsv(documents, './Foreclosure.csv');
@@ -68,7 +67,7 @@ router.post('/textractProcessSingle', async (req, res) => {
       const response: DocumentModelOutput[] = await main(processType, bucket, documentName, roleArn);
       response.forEach(async (item) => {
         var result = await createDocument(item)
-        await insertCientDocument(req.body.clientEmail, result._id);
+        await insertClientDocument(req.body.clientEmail, result._id);
       })
       res.status(200).send({level: 'info', message: 'Document(s) have been inserted in the DB'});
     } else {
@@ -113,6 +112,17 @@ router.post('/findClient', async (req, res) => {
   try {
     const client = await readClient(req.body.name, req.body.email)
     res.status(200).send(client);
+  } catch (err) {
+    res.status(500).send({level: 'error', message: 'Error occured finding user.'})
+  }
+})
+
+router.post('/getClientDocuments', async (req, res) => {
+  try {
+    const client = await readClient(req.body.name, req.body.email);
+    const documentIds = await Promise.all(client.documents.map(async obj => await readDocumentFromId(obj._id)));
+    const docs = await Promise.all(documentIds.map(async obj => await readDocumentFromId(obj._id)));
+    res.status(200).send(docs);
   } catch (err) {
     res.status(500).send({level: 'error', message: 'Error occured finding user.'})
   }
