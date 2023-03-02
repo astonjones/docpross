@@ -10,6 +10,7 @@ import { createUser, readUser } from '../db/userFunctions.js';
 import { createClient, insertClientDocument, readClient } from '../db/clientFunctions.js';
 import { createDocument, readDocumentFromId } from '../db/documentFunctions.js';
 import { DocumentModelOutput } from '../models/documentModels.js';
+import middlewareObj from '../middleware/index.js'
 
 const projectId = process.env.GOOGLE_PROJECT_ID;
 const location = process.env.GOOGLE_PROJECT_LOCATION; // Format is 'us' or 'eu'
@@ -60,7 +61,7 @@ router.post('/batchProcess', async (req, res) => {
  const processType = "LENDER"
 
  // pass documents to a client
-router.post('/textractProcessSingle', async (req, res) => {
+router.post('/textractProcessSingle', middlewareObj.isLoggedIn, async (req, res) => {
   try{
     // Here we should get the client and then insert documents for a specific client
     if(req.body.clientEmail != null || req.body.clientEmail != undefined){

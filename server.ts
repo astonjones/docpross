@@ -8,6 +8,7 @@ import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import passportLocalMongoose from 'passport-local-mongoose';
 import session from 'express-session';
+import User from './models/mongooseModels/user.model.js'
 
 import utilitiesRoutes from './routes/utilities.js';
 import index from './routes/index.js';
@@ -32,6 +33,10 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.get('/health', (req, res) => {
   res.send('healthy');
