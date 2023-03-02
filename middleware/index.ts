@@ -13,7 +13,7 @@ middlewareObj.checkClientOwnerShip = function(req, res, next){
   if(req.isAuthenticated()){
     ClientSchema.findById(req.params.id, function(err, foundClient){
       if(err){
-          res.status(404).send({level:'warn', message:'Client not found.'});
+        res.status(404).send({level:'warn', message:'Client not found.'});
       }  else {
         // conditional if user owns campground
         if(foundClient.author.id.equals(req.user._id)) {

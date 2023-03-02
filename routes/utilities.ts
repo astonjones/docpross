@@ -65,6 +65,8 @@ router.post('/textractProcessSingle', middlewareObj.isLoggedIn, async (req, res)
   try{
     // Here we should get the client and then insert documents for a specific client
     if(req.body.clientEmail != null || req.body.clientEmail != undefined){
+      // Maybe I should find the client before scanning the document
+      // const client = await readClient(req.body.name, req.body.email)
       const response: DocumentModelOutput[] = await main(processType, bucket, documentName, roleArn);
       response.forEach(async (item) => {
         var result = await createDocument(item)
@@ -100,7 +102,7 @@ router.post('/findUser', async (req, res) => {
   }
 })
 
-router.post('/addClient', async (req, res) => {
+router.post('/addClient', middlewareObj.isLoggedIn, async (req, res) => {
   try {
     const client = await createClient(req.body.name, req.body.email, req.body.address, req.body.phone);
     res.status(200).send({level: 'info', message: `client ${req.body.name} was created!`})
@@ -109,27 +111,36 @@ router.post('/addClient', async (req, res) => {
   }
 })
 
-router.post('/findClient', async (req, res) => {
+router.post('/findClient', middlewareObj.isLoggedIn, async (req, res) => {
   try {
     const client = await readClient(req.body.name, req.body.email)
-    res.status(200).send(client);
+    if(client != undefined || client != null){
+      res.status(200).send(client);
+    } else {
+      res.status(404).send({level: 'info', message: 'That client was not found!'});
+    }
   } catch (err) {
     res.status(500).send({level: 'error', message: 'Error occured finding user.'})
   }
 })
 
-router.post('/getClientDocuments', async (req, res) => {
+router.post('/getClientDocuments', middlewareObj.isLoggedIn, async (req, res) => {
   try {
+    // perhaps go through the users clients before searching the client??
     const client = await readClient(req.body.name, req.body.email);
     const documentIds = await Promise.all(client.documents.map(async obj => await readDocumentFromId(obj._id)));
     const docs = await Promise.all(documentIds.map(async obj => await readDocumentFromId(obj._id)));
-    res.status(200).send(docs);
+    if(documentIds.length < 1){
+      res.status(200).send({level: 'info', message:'This client does not have any submitted documents!'});
+    } else {
+      res.status(200).send(docs);
+    }
   } catch (err) {
     res.status(500).send({level: 'error', message: 'Error occured finding user.'})
   }
 })
 
-router.post('/findDocument', async (req, res) => {
+router.post('/findDocument', middlewareObj.isLoggedIn, async (req, res) => {
   try {
     const doc = await readDocumentFromId(req.body.id)
     res.status(200).send(doc);
