@@ -10,15 +10,15 @@ import passportLocalMongoose from 'passport-local-mongoose';
 import session from 'express-session';
 import User from './models/mongooseModels/User.model.js'
 
-import utilitiesRoutes from './routes/utilities.js';
 import index from './routes/index.js';
-// import clientRoutes from './routes/clients.js;
-// import userRoutes from './routes/user.js;
-// import documentRoutes from './routes/documentRoutes.js;
+import clientRoutes from './routes/clients.js';
+import userRoutes from './routes/users.js';
+import documentRoutes from './routes/documents.js';
 
 // Connection URI
 const uri = process.env.MONGO_URI;
-const db = process.env.MONGO_DB
+const db = process.env.MONGO_DB;
+const sessionSecret = process.env.EXPRESS_SESSION_SECRET;
 mongoose.set("strictQuery", false);
 mongoose.connect(uri + '/' + db);
 
@@ -26,7 +26,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(session({
-  secret: "Savage Serendipitous Solutions",
+  secret: sessionSecret,
   resave: false,
   saveUninitialized: false
 }));
@@ -43,8 +43,9 @@ app.get('/health', (req, res) => {
 })
 
 app.use('/', index)
-app.use("/utilities", utilitiesRoutes);
-
+app.use('/clients', clientRoutes);
+app.use('/users', userRoutes);
+app.use('/documents', documentRoutes);
 
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 mongoose.connection.once('open', function () {

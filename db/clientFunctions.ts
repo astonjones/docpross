@@ -1,7 +1,5 @@
 import dotenv from 'dotenv';
-import { ObjectId } from 'mongodb';
 import mongoose from 'mongoose';
-import { Model } from 'mongoose';
 dotenv.config();
 
 import clientModel from '../models/mongooseModels/Client.model.js';
@@ -20,7 +18,6 @@ export const createClient = async (userId: mongoose.Types.ObjectId, name: string
 
 export const readClients = async (userId) => {
   const user = await UserModel.findOne({ _id: userId }).populate('clients');
-  console.log(user.clients);
   return user.clients;
 }
 
