@@ -21,6 +21,13 @@ export const readClients = async (userId) => {
   return user.clients;
 }
 
+export const findClient = async (userId, name, email) => {
+  const clients = await readClients(userId);
+  const index = await clients.findIndex((elem) => elem.name == name && elem.email == email);
+  let foundClient = await clients[index];
+  return foundClient;
+}
+
 export const insertClientDocument = async (email: string, documentId: any) => {
   const client = await clientModel.findOneAndUpdate({email: email}, {$push: {documents: documentId}})
   return client;

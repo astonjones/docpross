@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 import middlewareObj from '../middleware/index.js'
-import { createClient, readClients } from '../db/clientFunctions.js';
+import { createClient, findClient, readClients } from '../db/clientFunctions.js';
 
 router.post('/addClient', middlewareObj.isLoggedIn, async (req, res) => {
 try {
@@ -27,18 +27,18 @@ router.post('/findClients', middlewareObj.isLoggedIn, async (req, res) => {
   }
 })
 
-// router.post('/findClient', middlewareObj.isLoggedIn, async (req, res) => {
-//   try {
-//     const client = await readClient(req.body.name, req.body.email)
-//     if(client != undefined || client != null){
-//       res.status(200).send(client);
-//     } else {
-//       res.status(404).send({level: 'info', message: 'That client was not found!'});
-//     }
-//   } catch (err) {
-//     res.status(500).send({level: 'error', message: 'Error occured finding a client.'})
-//   }
-// })
+router.post('/findClient', middlewareObj.isLoggedIn, async (req, res) => {
+  try {
+    const client = await findClient(req.user._id, req.body.name, req.body.email)
+    if(client != undefined || client != null){
+      res.status(200).send(client);
+    } else {
+      res.status(404).send({level: 'info', message: 'That client was not found!'});
+    }
+  } catch (err) {
+    res.status(500).send({level: 'error', message: 'Error occured finding a client.'})
+  }
+})
 
 // router.post('/getClientDocuments', middlewareObj.isLoggedIn, async (req, res) => {
 //   try {
