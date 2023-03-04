@@ -1,7 +1,7 @@
-import LendingDocumentSchema from './document.model.js';
+import LendingDocumentSchema from './LendingDocument.model.js';
 import mongoose from "mongoose";
 
-var ClientSchema = new mongoose.Schema({
+var Client = new mongoose.Schema({
    name: String,
    email: String,
    address: {
@@ -11,7 +11,12 @@ var ClientSchema = new mongoose.Schema({
       zipCode: String
    },
    phone: String,
-   documents: [mongoose.SchemaTypes.ObjectId]
+   documents: [
+      {
+         type: mongoose.SchemaTypes.ObjectId,
+         ref: "LendingDocument"
+      }
+   ]
 });
 
-export default mongoose.model("Client", ClientSchema);
+export default mongoose.model("Client", Client);

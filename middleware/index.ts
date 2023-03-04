@@ -1,4 +1,4 @@
-import ClientSchema from '../models/mongooseModels/client.model.js'
+import ClientSchema from '../models/mongooseModels/Client.model.js'
 
 var middlewareObj: any = {};
 

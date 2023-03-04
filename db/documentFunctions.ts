@@ -3,7 +3,7 @@ import { ObjectId } from 'mongodb';
 import { DocumentModelOutput, LendingDocumentField } from '../models/documentModels.js';
 dotenv.config();
 
-import LendingDocumentSchema from '../models/mongooseModels/document.model.js';
+import LendingDocumentSchema from '../models/mongooseModels/LendingDocument.model.js';
 
 export const createDocument = async (doc: DocumentModelOutput) => {
   const document = await LendingDocumentSchema.create({
