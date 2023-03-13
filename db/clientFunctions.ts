@@ -23,8 +23,8 @@ export const readClients = async (userId) => {
 
 export const findClient = async (userId, name, email) => {
   const clients = await readClients(userId);
-  const index = await clients.findIndex((elem) => elem.name == name && elem.email == email);
-  let foundClient = await clients[index];
+  const index = clients.findIndex((elem) => elem.name == name && elem.email == email);
+  let foundClient = clients[index];
   return foundClient;
 }
 
