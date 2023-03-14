@@ -31,6 +31,5 @@ export const findClient = async (userId, name, email) => {
 
 export const insertClientDocument = async (email: string, documentId: any) => {
   const client = await clientModel.findOneAndUpdate({email: email}, {$push: {documents: documentId}})
-  console.log('test')
   return client;
 }
