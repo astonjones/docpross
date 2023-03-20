@@ -2,8 +2,8 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 dotenv.config();
 
-import clientModel from '../models/mongooseModels/Client.model.js';
-import UserModel from '../models/mongooseModels/User.model.js';
+import clientModel from '../models/mongooseModels/client.model.js';
+import UserModel from '../models/mongooseModels/user.model.js';
 
 export const createClient = async (userId: mongoose.Types.ObjectId, name: string, email: string, address: Object, phone: string) => {
   const client = await clientModel.create({
