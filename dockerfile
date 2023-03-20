@@ -1,38 +1,44 @@
-# Use an official Node.js runtime as a parent image
-FROM node:14
+# Base image for your application
+FROM node:14-alpine as base
 
-# Set the working directory to /app
+# Set the working directory
 WORKDIR /app
 
-# Set environment variables for Node.js application
-ENV NODE_ENV production
-ENV PORT 3000
-
-# Set environment variables for MongoDB
-ENV MONGO_DB docpross
-ENV MONGO_URI mongodb://localhost:27017/docpross
-
-# Copy package.json and package-lock.json to the container
+# Copy the package.json and package-lock.json files
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --production
 
-# Install MongoDB in the container
-RUN apt-get update && \
-    apt-get install -y gnupg && \
-    curl -fsSL https://www.mongodb.org/static/pgp/server-5.0.asc | apt-key add - && \
-    echo "deb http://repo.mongodb.org/apt/ubuntu $(lsb_release -sc)/mongodb-org/5.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-5.0.list && \
-    apt-get update && \
-    apt-get install -y mongodb-org && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# Copy the rest of the application code to the container
+# Copy the rest of the application code
 COPY . .
 
-# Expose ports 3000 and 27017
-EXPOSE 3000 27017
+# Build the application
+RUN npm run build
 
-# Start the MongoDB service
-CMD ["mongod", "--bind_ip_all", "--fork", "--logpath", "/var/log/mongodb.log"] && npm start
+# Second stage: a new container for MongoDB
+FROM mongo:4.4.8
+
+# Set the working directory
+WORKDIR /mongo-data
+
+# Copy the MongoDB configuration file
+COPY mongod.conf /etc/mongod.conf
+
+# Expose MongoDB ports
+EXPOSE 27017
+
+# Set the entry point for the MongoDB container
+CMD ["mongod", "-f", "/etc/mongod.conf"]
+
+# Third stage: another new container for your application
+FROM base
+
+# Expose the port that the application will listen on
+EXPOSE 3000
+
+# Set environment variables for the application
+ENV PORT 3000
+
+# Set the entry point for the application container
+CMD ["npm", "start"]

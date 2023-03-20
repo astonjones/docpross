@@ -2,3 +2,5 @@
 .env
 /dist
 /others
+docker-compose.yml
+/data
