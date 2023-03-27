@@ -20,6 +20,7 @@ import  {
   StartLendingAnalysisCommand,
   DocumentMetadata
 } from "@aws-sdk/client-textract";
+import { SageMakerA2IRuntimeClient, DeleteHumanLoopCommand, StartHumanLoopCommand  } from "@aws-sdk/client-sagemaker-a2i-runtime";
 import { stdout } from "process";
 import {
   DocumentModelOutput,
@@ -29,19 +30,20 @@ import {
  } from "../../models/documentModels";
  import { LendingDocumentResponse } from "../../models/apiResponseModels";
 
- // Set the AWS Region.
- const REGION = "us-east-1"; //e.g. "us-east-1"
- // Create SNS service object.
- const sqsClient = new SQSClient({ region: REGION });
- const snsClient = new SNSClient({ region: REGION });
- const textractClient = new TextractClient({ region: REGION });
- 
- var startJobId = ""
- 
- var ts = Date.now();
- const snsTopicName = "AmazonTextractExample" + ts;
- const snsTopicParams = {Name: snsTopicName}
- const sqsQueueName = "AmazonTextractQueue-" + ts;
+// Set the AWS Region.
+const REGION = "us-east-1"; //e.g. "us-east-1"
+// Create SNS service object.
+const sqsClient = new SQSClient({ region: REGION });
+const snsClient = new SNSClient({ region: REGION });
+const textractClient = new TextractClient({ region: REGION });
+const a2iRuntimeClient = new SageMakerA2IRuntimeClient({ region: "us-east-1" });
+
+var startJobId = ""
+
+var ts = Date.now();
+const snsTopicName = "AmazonTextractExample" + ts;
+const snsTopicParams = {Name: snsTopicName}
+const sqsQueueName = "AmazonTextractQueue-" + ts;
 
  // Set the parameters for SQS
 const sqsParams = {
@@ -107,11 +109,11 @@ const processDocument = async (type, bucket, videoName, roleArn, sqsQueueUrl, sn
             Bucket:bucket,
             Name:videoName
           }
-        }, 
+        },
         NotificationChannel:{
         RoleArn: roleArn,
         SNSTopicArn: snsTopicArn
-      }
+        }
       }))
       console.log({level: 'info', message: 'Processing type: Lending Analysis'})
       validType = true
@@ -223,46 +225,6 @@ const deleteTopicAndQueue = async (sqsQueueUrlArg, snsTopicArnArg) => {
   console.log({ level: 'info', message: 'Successfully deleted topic & queue' })
 }
 
-const displayBlockInfo = async (block) => {
-  console.log({level: 'info', message: 'start of block info.'})
-  console.log(`Block ID: ${block.Id}`)
-  console.log(`Block Type: ${block.BlockType}`)
-  if (String(block).includes(String("EntityTypes"))){
-      console.log(`EntityTypes: ${block.EntityTypes}`)
-  }
-  if (String(block).includes(String("Text"))){
-      console.log(`EntityTypes: ${block.Text}`)
-  }
-  if (!String(block.BlockType).includes('PAGE')){
-      console.log(`Confidence: ${block.Confidence}`)
-  }
-  console.log(`Page: ${block.Page}`)
-  if (String(block.BlockType).includes("CELL")){
-    console.log("Cell Information")
-    console.log(`Column: ${block.ColumnIndex}`)
-    console.log(`Row: ${block.RowIndex}`)
-    console.log(`Column Span: ${block.ColumnSpan}`)
-    console.log(`Row Span: ${block.RowSpan}`)
-    if (String(block).includes("Relationships")){
-      console.log(`Relationships: ${block.Relationships}`)
-    }
-  }
-
-  console.log("Geometry")
-  console.log(`Bounding Box: ${JSON.stringify(block.Geometry.BoundingBox)}`)
-  console.log(`Polygon: ${JSON.stringify(block.Geometry.Polygon)}`)
-
-  if (String(block.BlockType).includes('SELECTION_ELEMENT')){
-    console.log('Selection Element detected:')
-    if (String(block.SelectionStatus).includes('SELECTED')){
-      console.log('Selected')
-    } else {
-      console.log('Not Selected')
-    }
-   }
-  console.log({level: 'info', message: 'End of block info.'})
-}
-
 const GetResults = async (processType, JobID) => {
   var maxResults = 1000
   var paginationToken = null
@@ -297,29 +259,31 @@ const GetResults = async (processType, JobID) => {
 
     await new Promise(resolve => setTimeout(resolve, 5000));
     console.log({level: 'info', message: "Detected Documented Text" })
-    // var docMetadata = (await response).DocumentMetadata
+    var docMetadata = (await response).DocumentMetadata
     var results = (await response).Results
+    //I've tried passing reponse, results,
     // THIS IS WHERE WE WILL GET THE TYPES & VALUES (Extractions)
-    results.forEach((r: LendingDocumentEntity) => {
-      const pagetype = r.PageClassification.PageType[0].Value;
-      let documentFields: any = [];
-      // console.log("Page Type Confidence: ", r.PageClassification.PageType[0].Confidence);
-      if(r.Extractions.length > 0){
-      var fields = r.Extractions[0].LendingDocument.LendingFields;
-        fields.forEach((e: LendingDocumentField) => {
-          // There are sometimes multiple value detections, sometimes there are none
-          if(e.ValueDetections.length > 0){
-            // Right now it is appending the first value NOT the most confident
-            documentFields.push({Type: e.Type, Value: e.ValueDetections[0].Text});
-            // console.log('Value Confidence: ', e.ValueDetections[0].Confidence);
-          } else {
-            console.log({level: 'info', message: `Type ${e.Type} Value not found`});
-          }
-        })
-      }
-      let documentObject: DocumentModelOutput = {documentType: pagetype, documentFields: documentFields}
-      documentsArray.push(documentObject);
-    });
+    // results.forEach((r: LendingDocumentEntity) => {
+    //   const pagetype = r.PageClassification.PageType[0].Value;
+    //   let documentFields: any = [];
+    //   // console.log("Page Type Confidence: ", r.PageClassification.PageType[0].Confidence);
+    //   if(r.Extractions.length > 0){
+    //   var fields = r.Extractions[0].LendingDocument.LendingFields;
+    //   startHumanLoop(fields[0], docMetadata[0])
+    //     fields.forEach((e: LendingDocumentField) => {
+    //       // There are sometimes multiple value detections, sometimes there are none
+    //       if(e.ValueDetections.length > 0){
+    //         // Right now it is appending the first value NOT the most confident
+    //         documentFields.push({Type: e.Type, Value: e.ValueDetections[0].Text});
+    //         // console.log('Value Confidence: ', e.ValueDetections[0].Confidence);
+    //       } else {
+    //         console.log({level: 'info', message: `Type ${e.Type} Value not found`});
+    //       }
+    //     })
+    //   }
+    //   let documentObject: DocumentModelOutput = {documentType: pagetype, documentFields: documentFields}
+    //   documentsArray.push(documentObject);
+    // });
 
     if(String(response).includes("NextToken")){
       paginationToken = response.NextToken
@@ -368,10 +332,37 @@ const GetLendingSummary = async (processType, JobID) => {
 
 }
 
+const startHumanLoop = async (humanLoopInput, metadata) => {
+  console.log("this is the humanLoopInput", humanLoopInput);
+  // const awaitedResponse = await humanLoopInput;
+  const stringInput = JSON.stringify(humanLoopInput);
+  const params = {
+    HumanLoopName: `docpross-human-workflow-${Date.now()}`,
+    FlowDefinitionArn: process.env.A2I_ARN,
+    HumanLoopInput: {
+      InputContent: JSON.stringify({
+        key1: 'value1',
+        key2: 'value2'
+      })
+    }
+  };
+  const command = new StartHumanLoopCommand(params);
+  try {
+    const response = await a2iRuntimeClient.send(command);
+    console.log(`Started human loop with ID ${response.HumanLoopArn}`);
+    return response.HumanLoopArn;
+  } catch (error) {
+    console.log(`Error starting human loop: ${error}`);
+    return null;
+  }
+}
+
  // DELETE TOPIC AND QUEUE
 const main = async (processType, bucket, documentName, roleArn) => {
   var sqsAndTopic = await createTopicandQueue();
   var process = await processDocument(processType, bucket, documentName, roleArn, sqsAndTopic[0], sqsAndTopic[1])
+  // var humanLoop = await startHumanLoop('testhumanLoop1', process[0]);
+  // console.log('humanLoop result == ', humanLoop);
   var deleteResults = await deleteTopicAndQueue(sqsAndTopic[0], sqsAndTopic[1])
   return process;
 }
@@ -379,7 +370,7 @@ const main = async (processType, bucket, documentName, roleArn) => {
 export {
   processDocument,
   deleteTopicAndQueue,
-  displayBlockInfo,
   GetResults,
+  startHumanLoop,
   main,
 }
