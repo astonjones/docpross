@@ -8,7 +8,7 @@ import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import passportLocalMongoose from 'passport-local-mongoose';
 import session from 'express-session';
-import User from './models/mongooseModels/User.model.js'
+import User from './models/mongooseModels/user.model.js'
 
 import index from './routes/index.js';
 import clientRoutes from './routes/clients.js';
