@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 dotenv.config();
+// test
 
 import clientModel from '../models/mongooseModels/client.model.js';
 import UserModel from '../models/mongooseModels/user.model.js';
@@ -23,8 +24,8 @@ export const readClients = async (userId) => {
 
 export const findClient = async (userId, name, email) => {
   const clients = await readClients(userId);
-  const index = await clients.findIndex((elem) => elem.name == name && elem.email == email);
-  let foundClient = await clients[index];
+  const index = clients.findIndex((elem) => elem.name == name && elem.email == email);
+  let foundClient = clients[index];
   return foundClient;
 }
 
