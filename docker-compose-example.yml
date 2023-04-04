@@ -1,0 +1,25 @@
+version: "3"
+services:
+  mongo:
+    container_name: mongo
+    image: mongo:4.4.8
+    volumes:
+      - ./data:/data/db
+      - ./mongod.conf:/etc/mongod.conf
+    ports:
+      - "27017:27017"
+  app:
+    container_name: docpross
+    build: .
+    volumes:
+      - .:/docpross
+    ports:
+      - "<port>:<port>"
+    environment:
+      - MONGO_URI=<mongo_uri>
+      - MONGO_DB=<database_name>
+      - TEXTRACT_ROLE=<textract_iam_role>
+      - EXPRESS_SESSION_SECRET=<express_session_secret>
+      - PORT=<port>
+    depends_on:
+      - mongo
