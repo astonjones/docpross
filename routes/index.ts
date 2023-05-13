@@ -7,6 +7,15 @@ router.get("/", function(req, res){
   res.send("landing");
 });
 
+router.get("/loggedin", function(req, res) {
+  console.log(req.session)
+  if (req.user) {
+    res.status(200).send({ level: 'info', message: 'User is currently logged in.'})
+  } else {
+    res.status(500).send({ level: 'info', message: 'User is not currently logged in'})
+  }
+})
+
 //handle sign up logic
 router.post("/register", function(req, res){
   var newUserSchema = new UserSchema({email: req.body.email, username: req.body.username});
