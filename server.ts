@@ -14,6 +14,7 @@ import index from './routes/index.js';
 import clientRoutes from './routes/clients.js';
 import userRoutes from './routes/users.js';
 import documentRoutes from './routes/documents.js';
+import cors from 'cors'
 
 // Connection URI
 const uri = process.env.MONGO_URI;
@@ -21,10 +22,17 @@ const db = process.env.MONGO_DB;
 const sessionSecret = process.env.EXPRESS_SESSION_SECRET;
 mongoose.set("strictQuery", false);
 mongoose.connect(uri + '/' + db);
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+};
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors(corsOptions))
 app.use(session({
   secret: sessionSecret,
   resave: false,
