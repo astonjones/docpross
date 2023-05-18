@@ -8,13 +8,12 @@ import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import passportLocalMongoose from 'passport-local-mongoose';
 import session from 'express-session';
-import User from './models/mongooseModels/user.model.js'
+import User from './models/user.model.js'
 
 import index from './routes/index.js';
-import clientRoutes from './routes/clients.js';
 import userRoutes from './routes/users.js';
 import documentRoutes from './routes/documents.js';
-import cors from 'cors'
+import cors from 'cors';
 
 // Connection URI
 const uri = process.env.MONGO_URI;
@@ -51,7 +50,6 @@ app.get('/health', (req, res) => {
 })
 
 app.use('/', index)
-app.use('/clients', clientRoutes);
 app.use('/users', userRoutes);
 app.use('/documents', documentRoutes);
 

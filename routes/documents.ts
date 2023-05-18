@@ -5,11 +5,9 @@ dotenv.config();
 import { processDocument, keyValuePairs, batchProcessDocument } from '../services/documentAi/documentProcesses.js';
 import documentsToCsv from '../services/csv/csvFunctions.js';
 import {v4 as uuidv4} from 'uuid';
-import { main } from '../services/textract/processDocuments.js';
-import { createDocument, readDocumentFromId } from '../db/documentFunctions.js';
-import { DocumentModelOutput } from '../models/documentModels.js';
-import { insertClientDocument } from '../db/clientFunctions.js';
 import middlewareObj from '../middleware/index.js';
+import processSingleReceipt from '../services/azure/processReceipt.js';
+import getS3SignedUrl from '../services/aws/s3.js';
 
 const projectId = process.env.GOOGLE_PROJECT_ID;
 const location = process.env.GOOGLE_PROJECT_LOCATION; // Format is 'us' or 'eu'
@@ -17,6 +15,33 @@ const processorId = process.env.GOOGLE_PROCESSOR_ID; // Should be a Hexadecimal 
 const gcsInputUri = process.env.GCS_INPUT_URI;
 const gcsOutputUri = process.env.GCS_OUTPUT_URI;
 const processorPath = process.env.GOOGLE_AI_PROCESSOR_PATH;
+
+// --------------- Routes for Azure Services ----------------------------
+
+router.post('/processReceipt', async (req, res) => {
+  try { 
+    const document = await processSingleReceipt();
+    res.status(200).send(document);
+  } catch (err) {
+    console.log({level: 'error', message: err})
+    res.status(500).send({message: 'Internal Server Error'});
+  }
+})
+
+router.post('/gets3file', async (req, res) => {
+  try {
+    if(req.filename){
+      const fileurl = getS3SignedUrl(req.body.filename);
+      console.log('req.body.filename: ', req.body)
+      // deepcode ignore XSS: <please specify a reason of ignoring this>
+      res.status(200).send(fileurl);
+    }
+    throw console.error('no specified file name');
+    
+  } catch (err){
+    console.log({level: 'error', message: err})
+  }
+})
 
 // --------------- ROUTES FOR GOOGLE DOCUMENT AI -----------------------
 
@@ -47,45 +72,6 @@ router.post('/batchProcess', async (req, res) => {
   } catch(err) {
     console.log(err);
     res.status(500).send(err);
-  }
-})
-
-// ---------------------  END OF GOOGLE DOCUMENT AI ROUTES -------------------------
-
- // Set bucket and video variables for AWS resources
- const bucket = process.env.AWS_S3_INPUT_BUCKET;
- const documentName = "Capital_one_Jan_2023.pdf";
- const roleArn = process.env.TEXTRACT_ROLE
- // Current Types availabld types are: ["LENDER", "DETECTION", "ANALYSIS"]
- const processType = "LENDER"
-
-router.post('/textractProcessSingle', middlewareObj.isLoggedIn, async (req, res) => {
-  try{
-    // HERE I NEED TO FIND THE USERS CLIENT THEN SEARCH THROUGH THOSE CLIENTS
-    if(req.body.clientEmail != null || req.body.clientEmail != undefined){
-      // THEN HAVE CONDITIONAL IF CLIENT EXISTS APPEND DOCUMENT TO CLIENT
-      // const client = await readClient(req.body.name, req.body.email)
-      const response: DocumentModelOutput[] = await main(processType, bucket, documentName, roleArn);
-      response.forEach(async (item) => {
-        var result = await createDocument(item)
-        await insertClientDocument(req.body.clientEmail, result._id);
-      })
-      res.status(200).send({level: 'info', message: 'Document(s) have been inserted in the DB'});
-    } else {
-      res.status(200).send({level: 'info', message: 'Error with the input parameters'});
-    }
-  } catch(err) {
-    console.log({level: 'error', message: `Internal Server error processing aws textract.`});
-    res.status(500).send(err);
-  }
-})
-
-router.post('/findDocument', middlewareObj.isLoggedIn, async (req, res) => {
-  try {
-    const doc = await readDocumentFromId(req.body.id)
-    res.status(200).send(doc);
-  } catch (err) {
-    res.status(500).send({level: 'error', message: 'Could not find that document by Id.'})
   }
 })
 

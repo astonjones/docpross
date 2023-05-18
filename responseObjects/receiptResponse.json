@@ -1,0 +1,90 @@
+{
+    "docType": "receipt.retailMeal",
+    "boundingRegions": [
+        {
+        "pageNumber": 1,
+        "polygon": []
+        }
+    ],
+    "spans": [
+        {
+        "offset": 0,
+        "length": 237
+        }
+    ],
+    "fields": {
+        "Items": {
+        "kind": "array",
+        "values": [],
+        "boundingRegions": null,
+        "content": null,
+        "spans": null,
+        "confidence": null
+        },
+        "MerchantAddress": {
+        "kind": "address",
+        "value": {},
+        "boundingRegions": [],
+        "content": "123 Main Street\nRedmond, WA 98052",
+        "spans": [],
+        "confidence": 0.986
+        },
+        "MerchantName": {
+        "kind": "string",
+        "value": "Contoso",
+        "boundingRegions": [],
+        "content": "Contoso",
+        "spans": [],
+        "confidence": 0.982
+        },
+        "MerchantPhoneNumber": {
+        "kind": "phoneNumber",
+        "value": "+11234567890",
+        "boundingRegions": [],
+        "content": "123-456-7890",
+        "spans": [],
+        "confidence": 0.988
+        },
+        "Subtotal": {
+        "kind": "number",
+        "value": 1098.99,
+        "boundingRegions": [],
+        "content": "$\n1098.99",
+        "spans": [],
+        "confidence": 0.982
+        },
+        "Total": {
+        "kind": "number",
+        "value": 1203.39,
+        "boundingRegions": [],
+        "content": "$ 1203.39",
+        "spans": [],
+        "confidence": 0.966
+        },
+        "TotalTax": {
+        "kind": "number",
+        "value": 104.4,
+        "boundingRegions": [],
+        "content": "$ 104.40",
+        "spans": [],
+        "confidence": 0.99
+        },
+        "TransactionDate": {
+        "kind": "date",
+        "value": "2019-06-10T00:00:00.000Z",
+        "boundingRegions": [],
+        "content": "6/10/2019",
+        "spans": [],
+        "confidence": 0.99
+        },
+        "TransactionTime": {
+        "kind": "time",
+        "value": "13:59:00",
+        "boundingRegions": [],
+        "content": "13:59",
+        "spans": [],
+        "confidence": 0.991
+        }
+    },
+    "confidence": 0.98
+}

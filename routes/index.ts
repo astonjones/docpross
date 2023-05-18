@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 import passport from "passport";
-import UserSchema from '../models/mongooseModels/user.model.js'
+import UserSchema from '../models/user.model.js'
 
 router.get("/", function(req, res){
   res.send("landing");
