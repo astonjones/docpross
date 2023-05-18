@@ -2,11 +2,8 @@ import express from 'express';
 const router = express.Router();
 import dotenv from 'dotenv';
 dotenv.config();
-import { processDocument, keyValuePairs, batchProcessDocument } from '../services/documentAi/documentProcesses.js';
-import documentsToCsv from '../services/csv/csvFunctions.js';
-import {v4 as uuidv4} from 'uuid';
 import middlewareObj from '../middleware/index.js';
-import { processSingleReceipt, batchProcessReceipt } from '../services/azure/processReceipt.js';
+import { batchProcessReceipt } from '../services/azure/processReceipt.js';
 import getS3SignedUrl from '../services/aws/s3.js';
 
 const projectId = process.env.GOOGLE_PROJECT_ID;
@@ -17,17 +14,6 @@ const gcsOutputUri = process.env.GCS_OUTPUT_URI;
 const processorPath = process.env.GOOGLE_AI_PROCESSOR_PATH;
 
 // --------------- Routes for Azure Services ----------------------------
-
-// router.post('/processSingleReceipt', async (req, res) => {
-//   try {
-//     const fileUrl = await getS3SignedUrl(req.body.filename);
-//     const document = await processSingleReceipt(fileUrl);
-//     res.status(200).send(document);
-//   } catch (err) {
-//     console.log({level: 'error', message: err})
-//     res.status(500).send({message: 'Internal Server Error'});
-//   }
-// })
 
 router.post('/batchProcessReceipt', async (req, res) => {
   try {
