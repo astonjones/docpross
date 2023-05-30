@@ -1,5 +1,10 @@
 ## Getting started
 
+## Updated Azure services development
+
+This repo uses aws s3, so you will need to set your config file up in your user file setting
+- This could possibly switch to having the access key accessible in the app via env variables... TBD
+
 # Run locally
 
 - You will need to get the proper environment variables of course and populate the .env file

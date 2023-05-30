@@ -13,7 +13,7 @@ const getS3SignedUrls = async (keys: string[]): Promise<string[]> => {
     // create a loop to iterate over keys and create signed urls
     for (let i = 0; i < keys.length; i++) {
         const command = new GetObjectCommand({ Bucket: BUCKET_NAME, Key: keys[i] });
-        const signedUrl = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+        const signedUrl = await getSignedUrl(s3Client, command, { expiresIn: 300 });
         signedUrls.push(signedUrl);
     }
 

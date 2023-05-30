@@ -1,0 +1,1919 @@
+[
+    {
+        "AmountDue": {
+            "kind": "currency",
+            "value": {
+                "amount": 34.76,
+                "currencySymbol": "$"
+            },
+            "boundingRegions": [
+                {
+                    "pageNumber": 1,
+                    "polygon": [
+                        {
+                            "x": 6.2168,
+                            "y": 7.9959
+                        },
+                        {
+                            "x": 6.6323,
+                            "y": 7.9959
+                        },
+                        {
+                            "x": 6.6323,
+                            "y": 8.1193
+                        },
+                        {
+                            "x": 6.2168,
+                            "y": 8.1193
+                        }
+                    ]
+                }
+            ],
+            "content": "$34.76",
+            "spans": [
+                {
+                    "offset": 916,
+                    "length": 6
+                }
+            ],
+            "confidence": 0.931
+        },
+        "CustomerAddress": {
+            "kind": "address",
+            "value": {
+                "houseNumber": "7200",
+                "road": "T C JESTER BLUV 103",
+                "city": "HOUSTON",
+                "state": "TX",
+                "postalCode": "77088",
+                "streetAddress": "7200 T C JESTER BLUV 103"
+            },
+            "boundingRegions": [
+                {
+                    "pageNumber": 1,
+                    "polygon": [
+                        {
+                            "x": 0.7541,
+                            "y": 9.7854
+                        },
+                        {
+                            "x": 2.1974,
+                            "y": 9.7854
+                        },
+                        {
+                            "x": 2.1974,
+                            "y": 10.0359
+                        },
+                        {
+                            "x": 0.7541,
+                            "y": 10.0359
+                        }
+                    ]
+                }
+            ],
+            "content": "7200 T C JESTER BLUV 103 HOUSTON TX 77088",
+            "spans": [
+                {
+                    "offset": 1078,
+                    "length": 41
+                }
+            ],
+            "confidence": 0.762
+        },
+        "CustomerAddressRecipient": {
+            "kind": "string",
+            "value": "ASTON JONES",
+            "boundingRegions": [
+                {
+                    "pageNumber": 1,
+                    "polygon": [
+                        {
+                            "x": 0.7516,
+                            "y": 9.6187
+                        },
+                        {
+                            "x": 1.5289,
+                            "y": 9.6187
+                        },
+                        {
+                            "x": 1.5289,
+                            "y": 9.7026
+                        },
+                        {
+                            "x": 0.7516,
+                            "y": 9.7026
+                        }
+                    ]
+                }
+            ],
+            "content": "ASTON JONES",
+            "spans": [
+                {
+                    "offset": 1066,
+                    "length": 11
+                }
+            ],
+            "confidence": 0.893
+        },
+        "CustomerId": {
+            "kind": "string",
+            "value": "900049887469",
+            "boundingRegions": [
+                {
+                    "pageNumber": 1,
+                    "polygon": [
+                        {
+                            "x": 3.5058,
+                            "y": 0.7364
+                        },
+                        {
+                            "x": 4.4208,
+                            "y": 0.7364
+                        },
+                        {
+                            "x": 4.4208,
+                            "y": 0.8366
+                        },
+                        {
+                            "x": 3.5058,
+                            "y": 0.8366
+                        }
+                    ]
+                }
+            ],
+            "content": "900049887469",
+            "spans": [
+                {
+                    "offset": 37,
+                    "length": 12
+                }
+            ],
+            "confidence": 0.936
+        },
+        "CustomerName": {
+            "kind": "string",
+            "value": "ASTON\nJONES",
+            "boundingRegions": [
+                {
+                    "pageNumber": 1,
+                    "polygon": [
+                        {
+                            "x": 3.5019,
+                            "y": 0.3984
+                        },
+                        {
+                            "x": 3.9679,
+                            "y": 0.3984
+                        },
+                        {
+                            "x": 3.9679,
+                            "y": 0.6699
+                        },
+                        {
+                            "x": 3.5019,
+                            "y": 0.6699
+                        }
+                    ]
+                }
+            ],
+            "content": "ASTON\nJONES",
+            "spans": [
+                {
+                    "offset": 15,
+                    "length": 5
+                },
+                {
+                    "offset": 104,
+                    "length": 5
+                }
+            ],
+            "confidence": 0.887
+        },
+        "DueDate": {
+            "kind": "date",
+            "value": "2022-10-17T00:00:00.000Z",
+            "boundingRegions": [
+                {
+                    "pageNumber": 1,
+                    "polygon": [
+                        {
+                            "x": 7.267,
+                            "y": 8.0011
+                        },
+                        {
+                            "x": 7.9462,
+                            "y": 8.0011
+                        },
+                        {
+                            "x": 7.9462,
+                            "y": 8.106
+                        },
+                        {
+                            "x": 7.267,
+                            "y": 8.106
+                        }
+                    ]
+                }
+            ],
+            "content": "10/17/2022",
+            "spans": [
+                {
+                    "offset": 923,
+                    "length": 10
+                }
+            ],
+            "confidence": 0.936
+        },
+        "InvoiceDate": {
+            "kind": "date",
+            "value": "2022-09-29T00:00:00.000Z",
+            "boundingRegions": [
+                {
+                    "pageNumber": 1,
+                    "polygon": [
+                        {
+                            "x": 3.5053,
+                            "y": 1.065
+                        },
+                        {
+                            "x": 4.1882,
+                            "y": 1.065
+                        },
+                        {
+                            "x": 4.1882,
+                            "y": 1.1699
+                        },
+                        {
+                            "x": 3.5053,
+                            "y": 1.1699
+                        }
+                    ]
+                }
+            ],
+            "content": "09/29/2022",
+            "spans": [
+                {
+                    "offset": 93,
+                    "length": 10
+                }
+            ],
+            "confidence": 0.936
+        },
+        "InvoiceId": {
+            "kind": "string",
+            "value": "054853009728",
+            "boundingRegions": [
+                {
+                    "pageNumber": 1,
+                    "polygon": [
+                        {
+                            "x": 3.5053,
+                            "y": 0.9031
+                        },
+                        {
+                            "x": 4.4213,
+                            "y": 0.9031
+                        },
+                        {
+                            "x": 4.4213,
+                            "y": 1.0032
+                        },
+                        {
+                            "x": 3.5053,
+                            "y": 1.0032
+                        }
+                    ]
+                }
+            ],
+            "content": "054853009728",
+            "spans": [
+                {
+                    "offset": 66,
+                    "length": 12
+                }
+            ],
+            "confidence": 0.936
+        },
+        "InvoiceTotal": {
+            "kind": "currency",
+            "value": {
+                "amount": 34.76,
+                "currencySymbol": "$"
+            },
+            "boundingRegions": [
+                {
+                    "pageNumber": 1,
+                    "polygon": [
+                        {
+                            "x": 4.7145,
+                            "y": 1.8681
+                        },
+                        {
+                            "x": 5.1295,
+                            "y": 1.8681
+                        },
+                        {
+                            "x": 5.1295,
+                            "y": 1.9916
+                        },
+                        {
+                            "x": 4.7145,
+                            "y": 1.9916
+                        }
+                    ]
+                }
+            ],
+            "content": "$34.76",
+            "spans": [
+                {
+                    "offset": 235,
+                    "length": 6
+                }
+            ],
+            "confidence": 0.935
+        },
+        "Items": {
+            "kind": "array",
+            "values": [
+                {
+                    "kind": "object",
+                    "properties": {
+                        "Amount": {
+                            "kind": "currency",
+                            "value": {
+                                "amount": 36.09,
+                                "currencySymbol": ""
+                            },
+                            "boundingRegions": [
+                                {
+                                    "pageNumber": 2,
+                                    "polygon": [
+                                        {
+                                            "x": 4.1272,
+                                            "y": 4.315
+                                        },
+                                        {
+                                            "x": 4.7147,
+                                            "y": 4.315
+                                        },
+                                        {
+                                            "x": 4.7147,
+                                            "y": 4.4199
+                                        },
+                                        {
+                                            "x": 4.1272,
+                                            "y": 4.4199
+                                        }
+                                    ]
+                                }
+                            ],
+                            "content": "36.09 CR",
+                            "spans": [
+                                {
+                                    "offset": 2369,
+                                    "length": 8
+                                }
+                            ],
+                            "confidence": 0.855
+                        },
+                        "Date": {
+                            "kind": "date",
+                            "value": "2022-09-01T00:00:00.000Z",
+                            "boundingRegions": [
+                                {
+                                    "pageNumber": 2,
+                                    "polygon": [
+                                        {
+                                            "x": 2.2402,
+                                            "y": 4.315
+                                        },
+                                        {
+                                            "x": 2.9232,
+                                            "y": 4.315
+                                        },
+                                        {
+                                            "x": 2.9232,
+                                            "y": 4.4199
+                                        },
+                                        {
+                                            "x": 2.2402,
+                                            "y": 4.4199
+                                        }
+                                    ]
+                                }
+                            ],
+                            "content": "09/01/2022",
+                            "spans": [
+                                {
+                                    "offset": 2356,
+                                    "length": 10
+                                }
+                            ],
+                            "confidence": 0.853
+                        },
+                        "Description": {
+                            "kind": "string",
+                            "value": "Previous Balance\nIncoming Credit Card",
+                            "boundingRegions": [
+                                {
+                                    "pageNumber": 2,
+                                    "polygon": [
+                                        {
+                                            "x": 0.2606,
+                                            "y": 3.9236
+                                        },
+                                        {
+                                            "x": 1.5542,
+                                            "y": 3.9236
+                                        },
+                                        {
+                                            "x": 1.5542,
+                                            "y": 4.4478
+                                        },
+                                        {
+                                            "x": 0.2606,
+                                            "y": 4.4478
+                                        }
+                                    ]
+                                }
+                            ],
+                            "content": "Previous Balance\nIncoming Credit Card",
+                            "spans": [
+                                {
+                                    "offset": 2293,
+                                    "length": 16
+                                },
+                                {
+                                    "offset": 2335,
+                                    "length": 20
+                                }
+                            ],
+                            "confidence": 0.669
+                        }
+                    },
+                    "boundingRegions": [
+                        {
+                            "pageNumber": 2,
+                            "polygon": [
+                                {
+                                    "x": 0.2561,
+                                    "y": 3.9167
+                                },
+                                {
+                                    "x": 4.7147,
+                                    "y": 3.9167
+                                },
+                                {
+                                    "x": 4.7147,
+                                    "y": 4.4478
+                                },
+                                {
+                                    "x": 0.2561,
+                                    "y": 4.4478
+                                }
+                            ]
+                        }
+                    ],
+                    "content": "Previous Balance\n$ 36.09\nCredits/Payments Incoming Credit Card\n09/01/2022 $ 36.09 CR",
+                    "spans": [
+                        {
+                            "offset": 2293,
+                            "length": 84
+                        }
+                    ],
+                    "confidence": 0.572
+                }
+            ]
+        },
+        "PreviousUnpaidBalance": {
+            "kind": "currency",
+            "value": {
+                "amount": 0,
+                "currencySymbol": "$"
+            },
+            "boundingRegions": [
+                {
+                    "pageNumber": 1,
+                    "polygon": [
+                        {
+                            "x": 3.4387,
+                            "y": 1.8681
+                        },
+                        {
+                            "x": 3.7765,
+                            "y": 1.8681
+                        },
+                        {
+                            "x": 3.7765,
+                            "y": 1.9916
+                        },
+                        {
+                            "x": 3.4387,
+                            "y": 1.9916
+                        }
+                    ]
+                }
+            ],
+            "content": "$0.00",
+            "spans": [
+                {
+                    "offset": 229,
+                    "length": 5
+                }
+            ],
+            "confidence": 0.933
+        },
+        "RemittanceAddress": {
+            "kind": "address",
+            "value": {
+                "poBox": "PO BOX 650638",
+                "city": "DALLAS",
+                "state": "TX",
+                "postalCode": "75265-0638",
+                "streetAddress": "PO BOX 650638"
+            },
+            "boundingRegions": [
+                {
+                    "pageNumber": 1,
+                    "polygon": [
+                        {
+                            "x": 4.6957,
+                            "y": 9.7354
+                        },
+                        {
+                            "x": 5.9361,
+                            "y": 9.7354
+                        },
+                        {
+                            "x": 5.9361,
+                            "y": 10.0001
+                        },
+                        {
+                            "x": 4.6957,
+                            "y": 10.0001
+                        }
+                    ]
+                }
+            ],
+            "content": "PO BOX 650638\nDALLAS, TX 75265-0638",
+            "spans": [
+                {
+                    "offset": 1131,
+                    "length": 35
+                }
+            ],
+            "confidence": 0.878
+        },
+        "RemittanceAddressRecipient": {
+            "kind": "string",
+            "value": "TXU ENERGY",
+            "boundingRegions": [
+                {
+                    "pageNumber": 1,
+                    "polygon": [
+                        {
+                            "x": 4.6882,
+                            "y": 9.5687
+                        },
+                        {
+                            "x": 5.4074,
+                            "y": 9.5687
+                        },
+                        {
+                            "x": 5.4074,
+                            "y": 9.6526
+                        },
+                        {
+                            "x": 4.6882,
+                            "y": 9.6526
+                        }
+                    ]
+                }
+            ],
+            "content": "TXU ENERGY",
+            "spans": [
+                {
+                    "offset": 1120,
+                    "length": 10
+                }
+            ],
+            "confidence": 0.9
+        },
+        "SubTotal": {
+            "kind": "currency",
+            "value": {
+                "amount": 36.09,
+                "currencySymbol": "$"
+            },
+            "boundingRegions": [
+                {
+                    "pageNumber": 2,
+                    "polygon": [
+                        {
+                            "x": 3.1292,
+                            "y": 4.5181
+                        },
+                        {
+                            "x": 4.719,
+                            "y": 4.5181
+                        },
+                        {
+                            "x": 4.719,
+                            "y": 4.6416
+                        },
+                        {
+                            "x": 3.1292,
+                            "y": 4.6416
+                        }
+                    ]
+                }
+            ],
+            "content": "$ 36.09 CR",
+            "spans": [
+                {
+                    "offset": 2387,
+                    "length": 10
+                }
+            ],
+            "confidence": 0.725
+        },
+        "VendorAddress": {
+            "kind": "address",
+            "value": {
+                "city": "Dallas",
+                "state": "TX",
+                "postalCode": "650764",
+                "streetAddress": ""
+            },
+            "boundingRegions": [
+                {
+                    "pageNumber": 2,
+                    "polygon": [
+                        {
+                            "x": 0.2534,
+                            "y": 1.8722
+                        },
+                        {
+                            "x": 1.8612,
+                            "y": 1.8722
+                        },
+                        {
+                            "x": 1.8612,
+                            "y": 1.9705
+                        },
+                        {
+                            "x": 0.2534,
+                            "y": 1.9705
+                        }
+                    ]
+                }
+            ],
+            "content": "650764, Dallas, TX 75265-0764.",
+            "spans": [
+                {
+                    "offset": 1687,
+                    "length": 30
+                }
+            ],
+            "confidence": 0.694
+        },
+        "VendorAddressRecipient": {
+            "kind": "string",
+            "value": "TXU Energy Executive Feedback,",
+            "boundingRegions": [
+                {
+                    "pageNumber": 2,
+                    "polygon": [
+                        {
+                            "x": 5.7563,
+                            "y": 1.7436
+                        },
+                        {
+                            "x": 7.5015,
+                            "y": 1.7436
+                        },
+                        {
+                            "x": 7.5015,
+                            "y": 1.8482
+                        },
+                        {
+                            "x": 5.7563,
+                            "y": 1.8482
+                        }
+                    ]
+                }
+            ],
+            "content": "TXU Energy Executive Feedback,",
+            "spans": [
+                {
+                    "offset": 1649,
+                    "length": 30
+                }
+            ],
+            "confidence": 0.53
+        },
+        "VendorName": {
+            "kind": "string",
+            "value": "TXU\nenergy",
+            "boundingRegions": [
+                {
+                    "pageNumber": 1,
+                    "polygon": [
+                        {
+                            "x": 0.7188,
+                            "y": 0.4039
+                        },
+                        {
+                            "x": 1.1996,
+                            "y": 0.4211
+                        },
+                        {
+                            "x": 1.1858,
+                            "y": 0.8069
+                        },
+                        {
+                            "x": 0.705,
+                            "y": 0.7897
+                        }
+                    ]
+                }
+            ],
+            "content": "TXU energy",
+            "spans": [
+                {
+                    "offset": 1203,
+                    "length": 10
+                }
+            ],
+            "confidence": 0.9
+        }
+    },
+    {
+        "CustomerId": {
+            "kind": "string",
+            "value": "900049887469",
+            "boundingRegions": [
+                {
+                    "pageNumber": 1,
+                    "polygon": [
+                        {
+                            "x": 3.5058,
+                            "y": 0.7364
+                        },
+                        {
+                            "x": 4.4208,
+                            "y": 0.7364
+                        },
+                        {
+                            "x": 4.4208,
+                            "y": 0.8366
+                        },
+                        {
+                            "x": 3.5058,
+                            "y": 0.8366
+                        }
+                    ]
+                }
+            ],
+            "content": "900049887469",
+            "spans": [
+                {
+                    "offset": 55,
+                    "length": 12
+                }
+            ],
+            "confidence": 0.971
+        },
+        "CustomerName": {
+            "kind": "string",
+            "value": "ASTON\nJONES",
+            "boundingRegions": [
+                {
+                    "pageNumber": 1,
+                    "polygon": [
+                        {
+                            "x": 3.5019,
+                            "y": 0.3984
+                        },
+                        {
+                            "x": 3.9679,
+                            "y": 0.3984
+                        },
+                        {
+                            "x": 3.9679,
+                            "y": 0.6699
+                        },
+                        {
+                            "x": 3.5019,
+                            "y": 0.6699
+                        }
+                    ]
+                }
+            ],
+            "content": "ASTON\nJONES",
+            "spans": [
+                {
+                    "offset": 15,
+                    "length": 5
+                },
+                {
+                    "offset": 33,
+                    "length": 5
+                }
+            ],
+            "confidence": 0.901
+        },
+        "InvoiceDate": {
+            "kind": "date",
+            "value": "2022-10-28T00:00:00.000Z",
+            "boundingRegions": [
+                {
+                    "pageNumber": 1,
+                    "polygon": [
+                        {
+                            "x": 3.514,
+                            "y": 1.065
+                        },
+                        {
+                            "x": 4.1882,
+                            "y": 1.065
+                        },
+                        {
+                            "x": 4.1882,
+                            "y": 1.1699
+                        },
+                        {
+                            "x": 3.514,
+                            "y": 1.1699
+                        }
+                    ]
+                }
+            ],
+            "content": "10/28/2022",
+            "spans": [
+                {
+                    "offset": 111,
+                    "length": 10
+                }
+            ],
+            "confidence": 0.973
+        },
+        "InvoiceId": {
+            "kind": "string",
+            "value": "054503076753",
+            "boundingRegions": [
+                {
+                    "pageNumber": 1,
+                    "polygon": [
+                        {
+                            "x": 3.5053,
+                            "y": 0.9031
+                        },
+                        {
+                            "x": 4.4219,
+                            "y": 0.9031
+                        },
+                        {
+                            "x": 4.4219,
+                            "y": 1.0032
+                        },
+                        {
+                            "x": 3.5053,
+                            "y": 1.0032
+                        }
+                    ]
+                }
+            ],
+            "content": "054503076753",
+            "spans": [
+                {
+                    "offset": 84,
+                    "length": 12
+                }
+            ],
+            "confidence": 0.972
+        },
+        "InvoiceTotal": {
+            "kind": "currency",
+            "value": {
+                "amount": 132.19,
+                "currencySymbol": "$"
+            },
+            "boundingRegions": [
+                {
+                    "pageNumber": 1,
+                    "polygon": [
+                        {
+                            "x": 6.8289,
+                            "y": 7.3411
+                        },
+                        {
+                            "x": 7.2727,
+                            "y": 7.3411
+                        },
+                        {
+                            "x": 7.2727,
+                            "y": 7.4522
+                        },
+                        {
+                            "x": 6.8289,
+                            "y": 7.4522
+                        }
+                    ]
+                }
+            ],
+            "content": "$132.19",
+            "spans": [
+                {
+                    "offset": 1183,
+                    "length": 7
+                }
+            ],
+            "confidence": 0.942
+        },
+        "Items": {
+            "kind": "array",
+            "values": [
+                {
+                    "kind": "object",
+                    "properties": {
+                        "Amount": {
+                            "kind": "currency",
+                            "value": {
+                                "amount": 8.9,
+                                "currencySymbol": "$"
+                            },
+                            "boundingRegions": [
+                                {
+                                    "pageNumber": 1,
+                                    "polygon": [
+                                        {
+                                            "x": 6.9682,
+                                            "y": 4.3615
+                                        },
+                                        {
+                                            "x": 7.2722,
+                                            "y": 4.3615
+                                        },
+                                        {
+                                            "x": 7.2722,
+                                            "y": 4.4726
+                                        },
+                                        {
+                                            "x": 6.9682,
+                                            "y": 4.4726
+                                        }
+                                    ]
+                                }
+                            ],
+                            "content": "$8.90",
+                            "spans": [
+                                {
+                                    "offset": 871,
+                                    "length": 5
+                                }
+                            ],
+                            "confidence": 0.896
+                        },
+                        "Description": {
+                            "kind": "string",
+                            "value": "Base Charge",
+                            "boundingRegions": [
+                                {
+                                    "pageNumber": 1,
+                                    "polygon": [
+                                        {
+                                            "x": 0.8746,
+                                            "y": 4.3662
+                                        },
+                                        {
+                                            "x": 1.5899,
+                                            "y": 4.3662
+                                        },
+                                        {
+                                            "x": 1.5899,
+                                            "y": 4.4857
+                                        },
+                                        {
+                                            "x": 0.8746,
+                                            "y": 4.4857
+                                        }
+                                    ]
+                                }
+                            ],
+                            "content": "Base Charge",
+                            "spans": [
+                                {
+                                    "offset": 859,
+                                    "length": 11
+                                }
+                            ],
+                            "confidence": 0.892
+                        }
+                    },
+                    "boundingRegions": [
+                        {
+                            "pageNumber": 1,
+                            "polygon": [
+                                {
+                                    "x": 0.8746,
+                                    "y": 4.3615
+                                },
+                                {
+                                    "x": 7.2722,
+                                    "y": 4.3615
+                                },
+                                {
+                                    "x": 7.2722,
+                                    "y": 4.4857
+                                },
+                                {
+                                    "x": 0.8746,
+                                    "y": 4.4857
+                                }
+                            ]
+                        }
+                    ],
+                    "content": "Base Charge\n$8.90",
+                    "spans": [
+                        {
+                            "offset": 859,
+                            "length": 17
+                        }
+                    ],
+                    "confidence": 0.89
+                },
+                {
+                    "kind": "object",
+                    "properties": {
+                        "Amount": {
+                            "kind": "currency",
+                            "value": {
+                                "amount": 75.21,
+                                "currencySymbol": "$"
+                            },
+                            "boundingRegions": [
+                                {
+                                    "pageNumber": 1,
+                                    "polygon": [
+                                        {
+                                            "x": 6.8987,
+                                            "y": 4.5262
+                                        },
+                                        {
+                                            "x": 7.2523,
+                                            "y": 4.5262
+                                        },
+                                        {
+                                            "x": 7.2523,
+                                            "y": 4.6373
+                                        },
+                                        {
+                                            "x": 6.8987,
+                                            "y": 4.6373
+                                        }
+                                    ]
+                                }
+                            ],
+                            "content": "$75.21",
+                            "spans": [
+                                {
+                                    "offset": 909,
+                                    "length": 6
+                                }
+                            ],
+                            "confidence": 0.896
+                        },
+                        "Description": {
+                            "kind": "string",
+                            "value": "Energy Charge",
+                            "boundingRegions": [
+                                {
+                                    "pageNumber": 1,
+                                    "polygon": [
+                                        {
+                                            "x": 0.8761,
+                                            "y": 4.531
+                                        },
+                                        {
+                                            "x": 1.701,
+                                            "y": 4.531
+                                        },
+                                        {
+                                            "x": 1.701,
+                                            "y": 4.6505
+                                        },
+                                        {
+                                            "x": 0.8761,
+                                            "y": 4.6505
+                                        }
+                                    ]
+                                }
+                            ],
+                            "content": "Energy Charge",
+                            "spans": [
+                                {
+                                    "offset": 877,
+                                    "length": 13
+                                }
+                            ],
+                            "confidence": 0.894
+                        },
+                        "Quantity": {
+                            "kind": "number",
+                            "value": 632,
+                            "boundingRegions": [
+                                {
+                                    "pageNumber": 1,
+                                    "polygon": [
+                                        {
+                                            "x": 4.6459,
+                                            "y": 4.5333
+                                        },
+                                        {
+                                            "x": 5.1416,
+                                            "y": 4.5333
+                                        },
+                                        {
+                                            "x": 5.1416,
+                                            "y": 4.6253
+                                        },
+                                        {
+                                            "x": 4.6459,
+                                            "y": 4.6253
+                                        }
+                                    ]
+                                }
+                            ],
+                            "content": "632 kWh",
+                            "spans": [
+                                {
+                                    "offset": 891,
+                                    "length": 7
+                                }
+                            ],
+                            "confidence": 0.425
+                        },
+                        "UnitPrice": {
+                            "kind": "currency",
+                            "value": {
+                                "amount": 0.119,
+                                "currencySymbol": "$"
+                            },
+                            "boundingRegions": [
+                                {
+                                    "pageNumber": 1,
+                                    "polygon": [
+                                        {
+                                            "x": 5.2015,
+                                            "y": 4.5262
+                                        },
+                                        {
+                                            "x": 6.1994,
+                                            "y": 4.5262
+                                        },
+                                        {
+                                            "x": 6.1994,
+                                            "y": 4.6373
+                                        },
+                                        {
+                                            "x": 5.2015,
+                                            "y": 4.6373
+                                        }
+                                    ]
+                                }
+                            ],
+                            "content": "@\n$ 0.119",
+                            "spans": [
+                                {
+                                    "offset": 899,
+                                    "length": 9
+                                }
+                            ],
+                            "confidence": 0.347
+                        }
+                    },
+                    "boundingRegions": [
+                        {
+                            "pageNumber": 1,
+                            "polygon": [
+                                {
+                                    "x": 0.8761,
+                                    "y": 4.5262
+                                },
+                                {
+                                    "x": 7.2523,
+                                    "y": 4.5262
+                                },
+                                {
+                                    "x": 7.2523,
+                                    "y": 4.6505
+                                },
+                                {
+                                    "x": 0.8761,
+                                    "y": 4.6505
+                                }
+                            ]
+                        }
+                    ],
+                    "content": "Energy Charge\n632 kWh @\n$ 0.119\n$75.21",
+                    "spans": [
+                        {
+                            "offset": 877,
+                            "length": 38
+                        }
+                    ],
+                    "confidence": 0.749
+                },
+                {
+                    "kind": "object",
+                    "properties": {
+                        "Amount": {
+                            "kind": "currency",
+                            "value": {
+                                "amount": 1.68,
+                                "currencySymbol": "$"
+                            },
+                            "boundingRegions": [
+                                {
+                                    "pageNumber": 1,
+                                    "polygon": [
+                                        {
+                                            "x": 6.9682,
+                                            "y": 4.6909
+                                        },
+                                        {
+                                            "x": 7.2721,
+                                            "y": 4.6909
+                                        },
+                                        {
+                                            "x": 7.2721,
+                                            "y": 4.8021
+                                        },
+                                        {
+                                            "x": 6.9682,
+                                            "y": 4.8021
+                                        }
+                                    ]
+                                }
+                            ],
+                            "content": "$1.68",
+                            "spans": [
+                                {
+                                    "offset": 937,
+                                    "length": 5
+                                }
+                            ],
+                            "confidence": 0.895
+                        },
+                        "Description": {
+                            "kind": "string",
+                            "value": "Gross Receipts Reimb",
+                            "boundingRegions": [
+                                {
+                                    "pageNumber": 1,
+                                    "polygon": [
+                                        {
+                                            "x": 0.8714,
+                                            "y": 4.6957
+                                        },
+                                        {
+                                            "x": 2.1107,
+                                            "y": 4.6957
+                                        },
+                                        {
+                                            "x": 2.1107,
+                                            "y": 4.8136
+                                        },
+                                        {
+                                            "x": 0.8714,
+                                            "y": 4.8136
+                                        }
+                                    ]
+                                }
+                            ],
+                            "content": "Gross Receipts Reimb",
+                            "spans": [
+                                {
+                                    "offset": 916,
+                                    "length": 20
+                                }
+                            ],
+                            "confidence": 0.89
+                        }
+                    },
+                    "boundingRegions": [
+                        {
+                            "pageNumber": 1,
+                            "polygon": [
+                                {
+                                    "x": 0.8714,
+                                    "y": 4.6909
+                                },
+                                {
+                                    "x": 7.2721,
+                                    "y": 4.6909
+                                },
+                                {
+                                    "x": 7.2721,
+                                    "y": 4.8136
+                                },
+                                {
+                                    "x": 0.8714,
+                                    "y": 4.8136
+                                }
+                            ]
+                        }
+                    ],
+                    "content": "Gross Receipts Reimb\n$1.68",
+                    "spans": [
+                        {
+                            "offset": 916,
+                            "length": 26
+                        }
+                    ],
+                    "confidence": 0.891
+                },
+                {
+                    "kind": "object",
+                    "properties": {
+                        "Amount": {
+                            "kind": "currency",
+                            "value": {
+                                "amount": 7.08,
+                                "currencySymbol": "$"
+                            },
+                            "boundingRegions": [
+                                {
+                                    "pageNumber": 1,
+                                    "polygon": [
+                                        {
+                                            "x": 6.9679,
+                                            "y": 5.0224
+                                        },
+                                        {
+                                            "x": 7.2729,
+                                            "y": 5.0224
+                                        },
+                                        {
+                                            "x": 7.2729,
+                                            "y": 5.1335
+                                        },
+                                        {
+                                            "x": 6.9679,
+                                            "y": 5.1335
+                                        }
+                                    ]
+                                }
+                            ],
+                            "content": "$7.08",
+                            "spans": [
+                                {
+                                    "offset": 953,
+                                    "length": 5
+                                }
+                            ],
+                            "confidence": 0.722
+                        },
+                        "Description": {
+                            "kind": "string",
+                            "value": "Sales Tax",
+                            "boundingRegions": [
+                                {
+                                    "pageNumber": 1,
+                                    "polygon": [
+                                        {
+                                            "x": 0.8715,
+                                            "y": 5.0271
+                                        },
+                                        {
+                                            "x": 1.4199,
+                                            "y": 5.0271
+                                        },
+                                        {
+                                            "x": 1.4199,
+                                            "y": 5.1215
+                                        },
+                                        {
+                                            "x": 0.8715,
+                                            "y": 5.1215
+                                        }
+                                    ]
+                                }
+                            ],
+                            "content": "Sales Tax",
+                            "spans": [
+                                {
+                                    "offset": 943,
+                                    "length": 9
+                                }
+                            ],
+                            "confidence": 0.696
+                        }
+                    },
+                    "boundingRegions": [
+                        {
+                            "pageNumber": 1,
+                            "polygon": [
+                                {
+                                    "x": 0.8715,
+                                    "y": 5.0224
+                                },
+                                {
+                                    "x": 7.2729,
+                                    "y": 5.0224
+                                },
+                                {
+                                    "x": 7.2729,
+                                    "y": 5.1335
+                                },
+                                {
+                                    "x": 0.8715,
+                                    "y": 5.1335
+                                }
+                            ]
+                        }
+                    ],
+                    "content": "Sales Tax\n$7.08",
+                    "spans": [
+                        {
+                            "offset": 943,
+                            "length": 15
+                        }
+                    ],
+                    "confidence": 0.641
+                },
+                {
+                    "kind": "object",
+                    "properties": {
+                        "Amount": {
+                            "kind": "currency",
+                            "value": {
+                                "amount": 35.64,
+                                "currencySymbol": "$"
+                            },
+                            "boundingRegions": [
+                                {
+                                    "pageNumber": 1,
+                                    "polygon": [
+                                        {
+                                            "x": 6.8987,
+                                            "y": 6.0127
+                                        },
+                                        {
+                                            "x": 7.2728,
+                                            "y": 6.0127
+                                        },
+                                        {
+                                            "x": 7.2728,
+                                            "y": 6.1238
+                                        },
+                                        {
+                                            "x": 6.8987,
+                                            "y": 6.1238
+                                        }
+                                    ]
+                                }
+                            ],
+                            "content": "$35.64",
+                            "spans": [
+                                {
+                                    "offset": 1083,
+                                    "length": 6
+                                }
+                            ],
+                            "confidence": 0.896
+                        },
+                        "Description": {
+                            "kind": "string",
+                            "value": "TDU Delivery Charges",
+                            "boundingRegions": [
+                                {
+                                    "pageNumber": 1,
+                                    "polygon": [
+                                        {
+                                            "x": 0.8671,
+                                            "y": 6.0175
+                                        },
+                                        {
+                                            "x": 2.111,
+                                            "y": 6.0175
+                                        },
+                                        {
+                                            "x": 2.111,
+                                            "y": 6.137
+                                        },
+                                        {
+                                            "x": 0.8671,
+                                            "y": 6.137
+                                        }
+                                    ]
+                                }
+                            ],
+                            "content": "TDU Delivery Charges",
+                            "spans": [
+                                {
+                                    "offset": 1062,
+                                    "length": 20
+                                }
+                            ],
+                            "confidence": 0.888
+                        }
+                    },
+                    "boundingRegions": [
+                        {
+                            "pageNumber": 1,
+                            "polygon": [
+                                {
+                                    "x": 0.8671,
+                                    "y": 6.0127
+                                },
+                                {
+                                    "x": 7.2728,
+                                    "y": 6.0127
+                                },
+                                {
+                                    "x": 7.2728,
+                                    "y": 6.137
+                                },
+                                {
+                                    "x": 0.8671,
+                                    "y": 6.137
+                                }
+                            ]
+                        }
+                    ],
+                    "content": "TDU Delivery Charges\n$35.64",
+                    "spans": [
+                        {
+                            "offset": 1062,
+                            "length": 27
+                        }
+                    ],
+                    "confidence": 0.891
+                },
+                {
+                    "kind": "object",
+                    "properties": {
+                        "Amount": {
+                            "kind": "currency",
+                            "value": {
+                                "amount": 0.68,
+                                "currencySymbol": "$"
+                            },
+                            "boundingRegions": [
+                                {
+                                    "pageNumber": 1,
+                                    "polygon": [
+                                        {
+                                            "x": 6.9682,
+                                            "y": 6.1774
+                                        },
+                                        {
+                                            "x": 7.2721,
+                                            "y": 6.1774
+                                        },
+                                        {
+                                            "x": 7.2721,
+                                            "y": 6.2886
+                                        },
+                                        {
+                                            "x": 6.9682,
+                                            "y": 6.2886
+                                        }
+                                    ]
+                                }
+                            ],
+                            "content": "$0.68",
+                            "spans": [
+                                {
+                                    "offset": 1111,
+                                    "length": 5
+                                }
+                            ],
+                            "confidence": 0.896
+                        },
+                        "Description": {
+                            "kind": "string",
+                            "value": "Gross Receipts Reimb",
+                            "boundingRegions": [
+                                {
+                                    "pageNumber": 1,
+                                    "polygon": [
+                                        {
+                                            "x": 0.8714,
+                                            "y": 6.1822
+                                        },
+                                        {
+                                            "x": 2.1107,
+                                            "y": 6.1822
+                                        },
+                                        {
+                                            "x": 2.1107,
+                                            "y": 6.3001
+                                        },
+                                        {
+                                            "x": 0.8714,
+                                            "y": 6.3001
+                                        }
+                                    ]
+                                }
+                            ],
+                            "content": "Gross Receipts Reimb",
+                            "spans": [
+                                {
+                                    "offset": 1090,
+                                    "length": 20
+                                }
+                            ],
+                            "confidence": 0.89
+                        }
+                    },
+                    "boundingRegions": [
+                        {
+                            "pageNumber": 1,
+                            "polygon": [
+                                {
+                                    "x": 0.8714,
+                                    "y": 6.1774
+                                },
+                                {
+                                    "x": 7.2721,
+                                    "y": 6.1774
+                                },
+                                {
+                                    "x": 7.2721,
+                                    "y": 6.3001
+                                },
+                                {
+                                    "x": 0.8714,
+                                    "y": 6.3001
+                                }
+                            ]
+                        }
+                    ],
+                    "content": "Gross Receipts Reimb\n$0.68",
+                    "spans": [
+                        {
+                            "offset": 1090,
+                            "length": 26
+                        }
+                    ],
+                    "confidence": 0.891
+                },
+                {
+                    "kind": "object",
+                    "properties": {
+                        "Amount": {
+                            "kind": "currency",
+                            "value": {
+                                "amount": 3,
+                                "currencySymbol": "$"
+                            },
+                            "boundingRegions": [
+                                {
+                                    "pageNumber": 1,
+                                    "polygon": [
+                                        {
+                                            "x": 6.9679,
+                                            "y": 6.5069
+                                        },
+                                        {
+                                            "x": 7.2729,
+                                            "y": 6.5069
+                                        },
+                                        {
+                                            "x": 7.2729,
+                                            "y": 6.6181
+                                        },
+                                        {
+                                            "x": 6.9679,
+                                            "y": 6.6181
+                                        }
+                                    ]
+                                }
+                            ],
+                            "content": "$3.00",
+                            "spans": [
+                                {
+                                    "offset": 1127,
+                                    "length": 5
+                                }
+                            ],
+                            "confidence": 0.725
+                        },
+                        "Description": {
+                            "kind": "string",
+                            "value": "Sales Tax",
+                            "boundingRegions": [
+                                {
+                                    "pageNumber": 1,
+                                    "polygon": [
+                                        {
+                                            "x": 0.8722,
+                                            "y": 6.514
+                                        },
+                                        {
+                                            "x": 1.4815,
+                                            "y": 6.514
+                                        },
+                                        {
+                                            "x": 1.4815,
+                                            "y": 6.6189
+                                        },
+                                        {
+                                            "x": 0.8722,
+                                            "y": 6.6189
+                                        }
+                                    ]
+                                }
+                            ],
+                            "content": "Sales Tax",
+                            "spans": [
+                                {
+                                    "offset": 1117,
+                                    "length": 9
+                                }
+                            ],
+                            "confidence": 0.663
+                        }
+                    },
+                    "boundingRegions": [
+                        {
+                            "pageNumber": 1,
+                            "polygon": [
+                                {
+                                    "x": 0.8722,
+                                    "y": 6.5069
+                                },
+                                {
+                                    "x": 7.2729,
+                                    "y": 6.5069
+                                },
+                                {
+                                    "x": 7.2729,
+                                    "y": 6.6189
+                                },
+                                {
+                                    "x": 0.8722,
+                                    "y": 6.6189
+                                }
+                            ]
+                        }
+                    ],
+                    "content": "Sales Tax\n$3.00",
+                    "spans": [
+                        {
+                            "offset": 1117,
+                            "length": 15
+                        }
+                    ],
+                    "confidence": 0.634
+                }
+            ]
+        },
+        "ServiceAddress": {
+            "kind": "address",
+            "value": {
+                "postalCode": "7200",
+                "streetAddress": ""
+            },
+            "boundingRegions": [
+                {
+                    "pageNumber": 1,
+                    "polygon": [
+                        {
+                            "x": 2.6083,
+                            "y": 2.0329
+                        },
+                        {
+                            "x": 2.8471,
+                            "y": 2.0329
+                        },
+                        {
+                            "x": 2.8471,
+                            "y": 2.113
+                        },
+                        {
+                            "x": 2.6083,
+                            "y": 2.113
+                        }
+                    ]
+                }
+            ],
+            "content": "7200",
+            "spans": [
+                {
+                    "offset": 218,
+                    "length": 4
+                }
+            ],
+            "confidence": 0.431
+        },
+        "ServiceEndDate": {
+            "kind": "date",
+            "value": "2022-10-25T00:00:00.000Z",
+            "boundingRegions": [
+                {
+                    "pageNumber": 1,
+                    "polygon": [
+                        {
+                            "x": 2.5596,
+                            "y": 4.0558
+                        },
+                        {
+                            "x": 3.1664,
+                            "y": 4.0558
+                        },
+                        {
+                            "x": 3.1664,
+                            "y": 4.1502
+                        },
+                        {
+                            "x": 2.5596,
+                            "y": 4.1502
+                        }
+                    ]
+                }
+            ],
+            "content": "10/25/2022",
+            "spans": [
+                {
+                    "offset": 814,
+                    "length": 10
+                }
+            ],
+            "confidence": 0.968
+        },
+        "ServiceStartDate": {
+            "kind": "date",
+            "value": "2022-09-27T00:00:00.000Z",
+            "boundingRegions": [
+                {
+                    "pageNumber": 1,
+                    "polygon": [
+                        {
+                            "x": 1.7524,
+                            "y": 4.0558
+                        },
+                        {
+                            "x": 2.3671,
+                            "y": 4.0558
+                        },
+                        {
+                            "x": 2.3671,
+                            "y": 4.1502
+                        },
+                        {
+                            "x": 1.7524,
+                            "y": 4.1502
+                        }
+                    ]
+                }
+            ],
+            "content": "09/27/2022",
+            "spans": [
+                {
+                    "offset": 800,
+                    "length": 10
+                }
+            ],
+            "confidence": 0.969
+        },
+        "VendorName": {
+            "kind": "string",
+            "value": "TXU\nenergy",
+            "boundingRegions": [
+                {
+                    "pageNumber": 1,
+                    "polygon": [
+                        {
+                            "x": 0.7189,
+                            "y": 0.4064
+                        },
+                        {
+                            "x": 1.1924,
+                            "y": 0.4204
+                        },
+                        {
+                            "x": 1.181,
+                            "y": 0.807
+                        },
+                        {
+                            "x": 0.7075,
+                            "y": 0.793
+                        }
+                    ]
+                }
+            ],
+            "content": "TXU energy",
+            "spans": [
+                {
+                    "offset": 1209,
+                    "length": 10
+                }
+            ],
+            "confidence": 0.921
+        }
+    }
+]
