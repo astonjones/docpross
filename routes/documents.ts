@@ -3,7 +3,7 @@ const router = express.Router();
 import dotenv from 'dotenv';
 dotenv.config();
 import middlewareObj from '../middleware/index.js';
-import getS3SignedUrl from '../services/aws/s3.js';
+import { listS3Objects, getS3SignedUrls } from '../services/aws/s3.js';
 import { batchProcessFromPrebuiltModel } from '../services/azure/batchProcessFromPrebuiltModel.js';
 import { parseExtractedTextResponseToReceiptSchema } from '../parseExtractedText/parseReceipt.js';
 import { createDocument } from '../db/documentDatabaseOperations.js';
@@ -18,10 +18,15 @@ const processorPath = process.env.GOOGLE_AI_PROCESSOR_PATH;
 // --------------- Routes for Azure Services ----------------------------
 
 router.post('/batchProcessReceipt', async (req, res) => {
+  const directoryPath = '/receipts'
   const azurePreBuiltModel = 'prebuilt-receipt';
   const structuredResponse = [];
   try {
-    const fileUrls = await getS3SignedUrl(req.body.filenames);
+    // reads all files in the directory & outputs keys
+    const s3Object = await listS3Objects(directoryPath);
+    // returns urls of keys
+    const fileUrls = await getS3SignedUrls(s3Object);
+    //processes the documents through azure
     const documents = await batchProcessFromPrebuiltModel(azurePreBuiltModel, fileUrls);
 
     // iterate through documents and call parseExtractedTextRessponseReceiptSchema
@@ -51,8 +56,10 @@ router.post('/batchProcessReceipt', async (req, res) => {
 
 router.post('/batchProcessInvoice', async (req, res) => {
   const azurePreBuiltModel = 'prebuilt-invoice';
+  const directoryPath = '/invoices'
   try {
-    const fileUrls = await getS3SignedUrl(req.body.filenames);
+    const s3Object = await listS3Objects(directoryPath);
+    const fileUrls = await getS3SignedUrls(s3Object);
     const documents = await batchProcessFromPrebuiltModel(azurePreBuiltModel, fileUrls);
     // const parseInvoice = await parseInvoice(documents);
 
@@ -66,18 +73,18 @@ router.post('/batchProcessInvoice', async (req, res) => {
 })
 
 // This file gets the signed url from s3 of a file name in the request body
-router.post('/gets3file', async (req, res) => {
-  try {
-    if(req.body){
-      console.log(req.body.filename);
-      const fileurl = await getS3SignedUrl(req.body.filename);
-      res.status(200).send(fileurl);
-    }
-    throw console.error('no specified file name');
+// router.post('/gets3file', async (req, res) => {
+//   try {
+//     if(req.body){
+//       console.log(req.body.filename);
+//       const fileurl = await getS3SignedUrl(req.body.filename);
+//       res.status(200).send(fileurl);
+//     }
+//     throw console.error('no specified file name');
     
-  } catch (err){
-    console.log({level: 'error', message: err})
-  }
-})
+//   } catch (err){
+//     console.log({level: 'error', message: err})
+//   }
+// })
 
-export default router;
+// export default router;
