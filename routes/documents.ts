@@ -3,7 +3,7 @@ const router = express.Router();
 import dotenv from 'dotenv';
 dotenv.config();
 import middlewareObj from '../middleware/index.js';
-import { listS3Objects, getS3SignedUrls } from '../services/aws/s3.js';
+import { getS3SignedUrls } from '../services/aws/s3.js';
 import { batchProcessFromPrebuiltModel } from '../services/azure/batchProcessFromPrebuiltModel.js';
 import { parseExtractedTextResponseToReceiptSchema } from '../parseExtractedText/parseReceipt.js';
 import { createDocument } from '../db/documentDatabaseOperations.js';
@@ -18,14 +18,12 @@ const processorPath = process.env.GOOGLE_AI_PROCESSOR_PATH;
 // --------------- Routes for Azure Services ----------------------------
 
 router.post('/batchProcessReceipt', async (req, res) => {
-  const directoryPath = '/receipts'
+  const directoryPath = 'testOrganization/receipts';
   const azurePreBuiltModel = 'prebuilt-receipt';
   const structuredResponse = [];
   try {
-    // reads all files in the directory & outputs keys
-    const s3Object = await listS3Objects(directoryPath);
     // returns urls of keys
-    const fileUrls = await getS3SignedUrls(s3Object);
+    const fileUrls = await getS3SignedUrls(directoryPath, req.body.files);
     //processes the documents through azure
     const documents = await batchProcessFromPrebuiltModel(azurePreBuiltModel, fileUrls);
 
@@ -56,10 +54,9 @@ router.post('/batchProcessReceipt', async (req, res) => {
 
 router.post('/batchProcessInvoice', async (req, res) => {
   const azurePreBuiltModel = 'prebuilt-invoice';
-  const directoryPath = '/invoices'
+  const directoryPath = 'testOrganization/invoices';
   try {
-    const s3Object = await listS3Objects(directoryPath);
-    const fileUrls = await getS3SignedUrls(s3Object);
+    const fileUrls = await getS3SignedUrls(directoryPath, req.body.files);
     const documents = await batchProcessFromPrebuiltModel(azurePreBuiltModel, fileUrls);
     // const parseInvoice = await parseInvoice(documents);
 
@@ -87,4 +84,4 @@ router.post('/batchProcessInvoice', async (req, res) => {
 //   }
 // })
 
-// export default router;
+export default router;
