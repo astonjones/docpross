@@ -22,7 +22,7 @@ const sessionSecret = process.env.EXPRESS_SESSION_SECRET;
 mongoose.set("strictQuery", false);
 mongoose.connect(uri + '/' + db);
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'http://localhost:1337',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
@@ -56,6 +56,6 @@ app.use('/documents', documentRoutes);
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 mongoose.connection.once('open', function () {
   console.log({level: 'info', message: 'database connected successfully!'})
-  http.createServer(app).listen(3000, () =>
-  console.log({level: 'info', message: `express listening on port: ${3000}`}));
+  http.createServer(app).listen(1337, () =>
+  console.log({level: 'info', message: `express listening on port: ${1337}`}));
 });

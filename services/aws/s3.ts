@@ -11,7 +11,7 @@ const s3Client = new S3Client({ region: 'us-east-1' });
 const getS3SignedUrls = async (filePrefix: string, keys: string[]): Promise<string[]> => {
     let signedUrls = [];
     // create a loop to iterate over keys and create signed urls
-    if(keys.length < 1)
+    if(keys.length > 1)
     {
         for (let i = 0; i < keys.length; i++) {
             const command = new GetObjectCommand({ Bucket: BUCKET_NAME, Key: `${filePrefix}/${keys[i]}` });
@@ -19,6 +19,7 @@ const getS3SignedUrls = async (filePrefix: string, keys: string[]): Promise<stri
             signedUrls.push(signedUrl);
         }
     } else {
+        console.log("returns empty array")
         return []
     }
 

@@ -5,15 +5,9 @@ dotenv.config();
 import middlewareObj from '../middleware/index.js';
 import { getS3SignedUrls } from '../services/aws/s3.js';
 import { batchProcessFromPrebuiltModel } from '../services/azure/batchProcessFromPrebuiltModel.js';
-import { parseExtractedTextResponseToReceiptSchema } from '../parseExtractedText/parseReceipt.js';
+import {  parseExtractedTextResponseToReceiptSchema } from '../parseExtractedText/parseReceipt.js';
+import { parseExtractedTextResponseToInvoiceSchema } from '../parseExtractedText/parseInvoice.js';
 import { createDocument } from '../db/documentDatabaseOperations.js';
-
-const projectId = process.env.GOOGLE_PROJECT_ID;
-const location = process.env.GOOGLE_PROJECT_LOCATION; // Format is 'us' or 'eu'
-const processorId = process.env.GOOGLE_PROCESSOR_ID; // Should be a Hexadecimal string
-const gcsInputUri = process.env.GCS_INPUT_URI;
-const gcsOutputUri = process.env.GCS_OUTPUT_URI;
-const processorPath = process.env.GOOGLE_AI_PROCESSOR_PATH;
 
 // --------------- Routes for Azure Services ----------------------------
 
@@ -22,8 +16,15 @@ router.post('/batchProcessReceipt', async (req, res) => {
   const azurePreBuiltModel = 'prebuilt-receipt';
   const structuredResponse = [];
   try {
+    if(req.body.files === undefined){
+      return "No files were selected"
+    }
     // returns urls of keys
     const fileUrls = await getS3SignedUrls(directoryPath, req.body.files);
+    if(fileUrls.length < 1){
+      return "The files you are looking for do not exist"
+    }
+    console.log('These are the filUrls', fileUrls);
     //processes the documents through azure
     const documents = await batchProcessFromPrebuiltModel(azurePreBuiltModel, fileUrls);
 
@@ -55,33 +56,44 @@ router.post('/batchProcessReceipt', async (req, res) => {
 router.post('/batchProcessInvoice', async (req, res) => {
   const azurePreBuiltModel = 'prebuilt-invoice';
   const directoryPath = 'testOrganization/invoices';
+  const structuredResponse = [];
   try {
+    if(req.body.files === undefined){
+      return "No files were selected"
+    }
+    // returns urls of keys
     const fileUrls = await getS3SignedUrls(directoryPath, req.body.files);
+    console.log('These are the filUrls', fileUrls);
+    if(fileUrls.length < 1){
+      return "The files you are looking for do not exist"
+    }
     const documents = await batchProcessFromPrebuiltModel(azurePreBuiltModel, fileUrls);
-    // const parseInvoice = await parseInvoice(documents);
+    console.log({level: 'info', message: "Finished processing invoice documents"});
 
-    // Here I should probably send the documents to the database
-    // I also need to send less confident document to another db/collection/queue for human review
-    res.status(200).send(documents);
+    // iterate through documents and call parseExtractedTextRessponseReceiptSchema
+    for (const doc of documents) {
+      const parsedDoc = parseExtractedTextResponseToInvoiceSchema(doc);
+      structuredResponse.push(parsedDoc);
+    }
+    console.log({level: 'info', message: "Finished parsing invoice documents"});
+
+    if(!structuredResponse.length){
+      res.status(404).send({message: "There is no extracted data for this document."})
+    } else {
+      console.log('Structured Response:', structuredResponse);
+
+      // Wait for all documents to be created
+      await Promise.all(structuredResponse.map(async (item) => {
+        await createDocument(item);
+      }));
+
+      // Send structured response
+      res.status(200).send(structuredResponse);
+    }
   } catch (err) {
     console.log({level: 'error', message: err})
     res.status(500).send({message: 'Internal Server Error'});
   }
 })
-
-// This file gets the signed url from s3 of a file name in the request body
-// router.post('/gets3file', async (req, res) => {
-//   try {
-//     if(req.body){
-//       console.log(req.body.filename);
-//       const fileurl = await getS3SignedUrl(req.body.filename);
-//       res.status(200).send(fileurl);
-//     }
-//     throw console.error('no specified file name');
-    
-//   } catch (err){
-//     console.log({level: 'error', message: err})
-//   }
-// })
 
 export default router;

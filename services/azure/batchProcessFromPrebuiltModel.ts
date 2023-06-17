@@ -14,6 +14,7 @@ async function batchProcessFromPrebuiltModel(prebuiltModel: string, FileUrlsS3: 
             const poller = await client.beginAnalyzeDocumentFromUrl(prebuiltModel, FileUrlS3);
             const { documents: [result] } = await poller.pollUntilDone();
             if (result) {
+                console.log(result)
                 // Here I should polish the result & maybe user templates are used here
                 bulkScannedFiles.push(result.fields);
             } else {

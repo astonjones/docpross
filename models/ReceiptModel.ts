@@ -1,7 +1,7 @@
 export interface Receipt {
-  merchantName?: { value: string, confidence: number  };
-  merchantPhoneNumber?: { value: string, confidence: number  };
-  merchantAddress?: { 
+  MerchantName?: { value: string, confidence: number  };
+  MerchantPhoneNumber?: { value: string, confidence: number  };
+  MerchantAddress?: { 
     houseNumber?: string,
     road?: string,
     city?: string,
@@ -10,14 +10,14 @@ export interface Receipt {
     streetAddress?: string,
     unit?: string
   };
-  total?: { value: number, confidence: number  };
-  transactionDate?: { value: Date, confidence: number  };
-  transactionTime?: { value: Date, confidence: number  };
-  subtotal?: { value: number, confidence: number  };
-  totalTax?: { value: number, confidence: number  };
-  tip?: { value: number, confidence: number  };
-  items?: Item[];
-  taxDetails?: TaxDetail[];
+  Total?: { value: number, confidence: number  };
+  TransactionDate?: { value: Date, confidence: number  };
+  TransactionTime?: { value: Date, confidence: number  };
+  Subtotal?: { value: number, confidence: number  };
+  TotalTax?: { value: number, confidence: number  };
+  Tip?: { value: number, confidence: number  };
+  Items?: Item[];
+  TaxDetails?: TaxDetail[];
 }
 
 // I think I need to nest these attributes under Item.values:

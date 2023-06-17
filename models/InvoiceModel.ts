@@ -1,4 +1,4 @@
-export interface IInvoice extends Document {
+export interface Invoice {
     CustomerName: { value: string, confidence: number };
     CustomerId: { value: string, confidence: number };
     PurchaseOrder: { value: string, confidence: number };
@@ -11,7 +11,7 @@ export interface IInvoice extends Document {
     VendorAddressRecipient: { value: string, confidence: number };
     CustomerAddress: { value: string, confidence: number };
     CustomerTaxId: { value: string, confidence: number };
-    CustomerAddressRecipient: string;
+    CustomerAddressRecipient: { value: string, confidence: number };
     BillingAddress: { value: string, confidence: number };
     BillingAddressRecipient: { value: string, confidence: number };
     ShippingAddress: { value: string, confidence: number };

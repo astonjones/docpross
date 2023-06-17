@@ -3,17 +3,17 @@ import { Receipt } from "../models/ReceiptModel";
 export const parseExtractedTextResponseToReceiptSchema = (documentFields: any): Receipt => {
   // First, parse the basic fields
   const receipt: Receipt = {
-    merchantName: createStringValueConfidenceObject(documentFields.MerchantName),
-    merchantPhoneNumber: createStringValueConfidenceObject(documentFields.MerchantPhoneNumber),
-    merchantAddress: documentFields.MerchantAddress.value,
-    total: createNumberValueConfidenceObject(documentFields.Total),
-    transactionDate: createDateValueConfidenceObject(documentFields.TransactionDate),
-    transactionTime: createDateValueConfidenceObject(documentFields.TransactionTime),
-    subtotal: createNumberValueConfidenceObject(documentFields.Subtotal),
-    totalTax: createNumberValueConfidenceObject(documentFields.TotalTax),
-    tip: createNumberValueConfidenceObject(documentFields.Tip), // If tip is not in the response, handle accordingly
-    items: [], // Items are handled below
-    taxDetails: [], // If you have taxDetails in your response, parse them similar to items
+    MerchantName: createStringValueConfidenceObject(documentFields.MerchantName),
+    MerchantPhoneNumber: createStringValueConfidenceObject(documentFields.MerchantPhoneNumber),
+    MerchantAddress: documentFields.MerchantAddress.value,
+    Total: createNumberValueConfidenceObject(documentFields.Total),
+    TransactionDate: createDateValueConfidenceObject(documentFields.TransactionDate),
+    TransactionTime: createDateValueConfidenceObject(documentFields.TransactionTime),
+    Subtotal: createNumberValueConfidenceObject(documentFields.Subtotal),
+    TotalTax: createNumberValueConfidenceObject(documentFields.TotalTax),
+    Tip: createNumberValueConfidenceObject(documentFields.Tip), // If tip is not in the response, handle accordingly
+    Items: [], // Items are handled below
+    TaxDetails: [], // If you have taxDetails in your response, parse them similar to items
   };
 
   // Then, handle the array of items
@@ -21,7 +21,7 @@ export const parseExtractedTextResponseToReceiptSchema = (documentFields: any): 
   // If it's different, you may need to adjust this code.
   if (documentFields.Items) {
     documentFields.Items.values.forEach((item: any) => {
-      receipt.items.push({
+      receipt.Items.push({
         values: {
           description: createStringValueConfidenceObject(item.Description),
           quantity: createNumberValueConfidenceObject(item.Quantity),
